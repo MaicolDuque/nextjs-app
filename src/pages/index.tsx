@@ -1,5 +1,5 @@
 
-import { Login } from '@shared/components/Login'
+import { Login } from '../components/Login'
 import Head from 'next/head'
 
 export default function Home() {

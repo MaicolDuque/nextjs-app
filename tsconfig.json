@@ -15,8 +15,10 @@
     "jsx": "preserve",
     "incremental": true,
     "paths": {
-      "@shared/*": ["./src/shared/*"],
-      "@alosoft/*": ["./src/pages*"]
+      "@components/*": ["./src/components/*"],
+      "@pages/*": ["./src/pages/*"],
+      "@helpers/*": ["./src/helpers/*"],
+      "@hooks/*": ["./src/hooks/*"],
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

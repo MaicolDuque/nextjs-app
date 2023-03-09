@@ -2,8 +2,8 @@
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 
-import { ALO_IDS_SUPPORTED } from '@shared/helpers/constants'
-import { Login } from '@shared/components/Login'
+import { ALO_IDS_SUPPORTED } from '../helpers/constants'
+import { Login } from '@components/Login'
 
 export default function AloApp(){
 	const router = useRouter()
