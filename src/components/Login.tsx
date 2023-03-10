@@ -1,12 +1,15 @@
 
 import Image from 'next/image'
+import Cookies from 'js-cookie'
 import { useRef } from 'react'
+import { useRouter } from 'next/router'
 
 import { ALO_APPS, DEFAULT_ALT, DEFAULT_IMG } from '@helpers/constants'
 import { useAuth } from '@hooks/useAuth'
 
 export function Login({ aloId }: { aloId: string }) {
   const auth = useAuth()
+  const router = useRouter()
 
   const emailRef = useRef<HTMLInputElement>(null)
   const passwordRef = useRef<HTMLInputElement>(null)
@@ -17,13 +20,12 @@ export function Login({ aloId }: { aloId: string }) {
     const email = emailRef.current?.value ?? ''
     const password = passwordRef.current?.value ?? ''
     const aloid = aloidRef.current?.value ?? aloId
-    // const dataOk = email === 'm@m.com' && password === '123' && ALO_IDS_SUPPORTED.includes(aloid)
-    // if()
-    console.log({ email, password, aloid })
-
     auth?.singnIn(email, password)
-    .then(data => console.log({data}))
-    .catch(error => console.log({error}))
+    .then(data => {
+      Cookies.set('token', data, { expires: 7 })
+      router.push('/dashboard')
+    })
+    .catch(error => console.error({error}))
 
   }
 
