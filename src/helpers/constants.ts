@@ -1,4 +1,5 @@
 
+
 export const ALO_APPS: Record<string, any> = {
   'alo-mobile': {
     image: 'https://instagram.feoh1-1.fna.fbcdn.net/v/t51.2885-19/326500843_481214920868220_2909157582924248465_n.jpg?stp=dst-jpg_s320x320&_nc_ht=instagram.feoh1-1.fna.fbcdn.net&_nc_cat=100&_nc_ohc=zpNsbbv9DecAX_sZGql&edm=AOQ1c0wBAAAA&ccb=7-5&oh=00_AfDEWSesvnNPCaTp3DvSlfs7YJ5V8dC3xnctu8jJA9H01A&oe=640BEF70&_nc_sid=8fd12b',
@@ -13,7 +14,9 @@ export const ALO_APPS: Record<string, any> = {
     alt: "alocases_co's profile picture"
   },
 }
-export const ALO_IDS_SUPPORTED = Object.keys(ALO_APPS)
+export const ALO_IDS_SUPPORTED: string[] = JSON.parse(process.env.NEXT_PUBLIC_ALO_IDS ?? '')
+export const ROUTES_LOGIN = [...ALO_IDS_SUPPORTED.map(alo => '/'+alo), '/']
+
 
 export const DEFAULT_IMG = 'https://instagram.feoh1-1.fna.fbcdn.net/v/t51.2885-19/326500843_481214920868220_2909157582924248465_n.jpg?stp=dst-jpg_s320x320&_nc_ht=instagram.feoh1-1.fna.fbcdn.net&_nc_cat=100&_nc_ohc=zpNsbbv9DecAX_sZGql&edm=AOQ1c0wBAAAA&ccb=7-5&oh=00_AfDEWSesvnNPCaTp3DvSlfs7YJ5V8dC3xnctu8jJA9H01A&oe=640BEF70&_nc_sid=8fd12b'
 export const DEFAULT_ALT = "alomobilectg's profile picture"

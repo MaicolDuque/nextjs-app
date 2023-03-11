@@ -1,7 +1,6 @@
 
 import Image from 'next/image'
-import Cookies from 'js-cookie'
-import { useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { useRouter } from 'next/router'
 
 import { ALO_APPS, DEFAULT_ALT, DEFAULT_IMG } from '@helpers/constants'
@@ -21,12 +20,8 @@ export function Login({ aloId }: { aloId: string }) {
     const password = passwordRef.current?.value ?? ''
     const aloid = aloidRef.current?.value ?? aloId
     auth?.singnIn(email, password)
-    .then(data => {
-      Cookies.set('token', data, { expires: 7 })
-      router.push('/dashboard')
-    })
+    .then(_ => router.push('/dashboard'))
     .catch(error => console.error({error}))
-
   }
 
   return (
