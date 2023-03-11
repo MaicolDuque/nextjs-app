@@ -83,12 +83,6 @@ export function Header() {
                 >
                   Profile
                 </a>
-                <a
-                  href="#"
-                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white"
-                >
-                  Products
-                </a>
                 <div
                   onClick={() => auth?.signOut()}
                   className="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white cursor-pointer"

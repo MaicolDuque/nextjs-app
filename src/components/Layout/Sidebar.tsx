@@ -1,8 +1,11 @@
-import { isOpenSideBar, setIsOpenSideBar } from "@store/slices/appSlice";
+import { ALO_APPS } from "@helpers/constants";
+import { getAloId, isOpenSideBar, setIsOpenSideBar } from "@store/slices/appSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 export function Sidebar() {
   const isOpen = useSelector(isOpenSideBar);
+  const aloId = useSelector(getAloId);
+  const titleDashboard = ALO_APPS[aloId]?.title
   const dispatch = useDispatch();
   return (
     <>
@@ -44,7 +47,7 @@ export function Sidebar() {
               </svg>
 
               <span className="mx-2 text-2xl font-semibold text-white">
-                V-Dashboard
+                { titleDashboard }
               </span>
             </div>
           </div>
