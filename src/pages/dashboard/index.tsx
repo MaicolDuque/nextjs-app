@@ -1,8 +1,12 @@
+import { isOpenSideBar, setIsOpenSideBar } from '@store/slices/appSlice';
 import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 
 export default function Dashboard() {
   const [dropdown, setDropdown] = useState(false)
-  const [isOpen, setIsOpen] = useState(false)
+  const isOpen = useSelector(isOpenSideBar);
+  const dispatch = useDispatch();
+
   return (
     <>
       <div className="flex h-screen bg-gray-200 font-roboto">
@@ -12,7 +16,7 @@ export default function Dashboard() {
             className={`${
               isOpen ? 'block' : 'hidden'
             } fixed inset-0 z-20 transition-opacity bg-black opacity-50 lg:hidden`}
-            onClick={() => setIsOpen(false)}
+            onClick={() => dispatch(setIsOpenSideBar(false))}
           ></div>
           {/* <End Backdrop */}
 
@@ -124,7 +128,7 @@ activeClass: bg-gray-600 bg-opacity-25 text-gray-100 border-gray-100
           <header className="flex items-center justify-between px-6 py-4 bg-white border-b-4 border-indigo-600">
             <div className="flex items-center">
               {/* @click="isOpen = true" */}
-              <button onClick={() => setIsOpen(true)} className="text-gray-500 focus:outline-none lg:hidden">
+              <button onClick={() => dispatch(setIsOpenSideBar(true))} className="text-gray-500 focus:outline-none lg:hidden">
                 <svg
                   className="w-6 h-6"
                   viewBox="0 0 24 24"
