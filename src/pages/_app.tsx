@@ -3,14 +3,25 @@ import { wrapper } from '@store/store'
 import { Provider } from 'react-redux'
 
 import '../styles/talwind.css'
-import { ProviderAuth } from '@hooks/useAuth'
+import { ProviderAuth } from '@hooks/userContext'
+import { DashboardLayout } from '@components/Layout/DashboardLayout'
+import { useAuthenticated } from '@hooks/useAuthenticated'
 
-function App({ Component, pageProps }: AppProps) {
+export default function App({ Component, ...rest }: AppProps) {
+  const { isAuthenticated } = useAuthenticated()
+  const { store, props } = wrapper.useWrappedStore(rest)
+  const { pageProps } = props
   return (
-    <ProviderAuth>
-      <Component {...pageProps} />
-    </ProviderAuth>
+    <Provider store={store}>
+      <ProviderAuth>
+        {isAuthenticated ? (
+          <DashboardLayout>
+            <Component {...pageProps} />
+          </DashboardLayout>
+        ) : (
+          <Component {...pageProps} />
+        )}
+      </ProviderAuth>
+    </Provider>
   )
 }
-
-export default wrapper.withRedux(App);

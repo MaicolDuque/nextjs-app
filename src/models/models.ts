@@ -6,5 +6,5 @@ export interface User {
 export interface UserContext {
   user: User,
   singnIn: (email: string, password: string) => Promise<any>;
-  signOut: () => void
+  signOut: () => void;
 }
