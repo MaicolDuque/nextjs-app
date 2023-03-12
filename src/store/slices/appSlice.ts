@@ -9,7 +9,7 @@ const initialState: CounterState = {
   aloId: '',
   uiConfig: {
     isOpenSideBar: false,
-    test: 'Sisas'
+    sidebarItemSelected: 'Inicio'
   }
 }
 
@@ -21,7 +21,8 @@ export const appSlice = createSlice({
       state.value += 1
     },
     setAloId: (state, action: PayloadAction<string>) => { state.aloId = action.payload },
-    setIsOpenSideBar: (state, action: PayloadAction<boolean>) => { state.uiConfig.isOpenSideBar = action.payload }
+    setIsOpenSideBar: (state, action: PayloadAction<boolean>) => { state.uiConfig.isOpenSideBar = action.payload },
+    setSidebarItem: (state, action: PayloadAction<string>) => { state.uiConfig.sidebarItemSelected = action.payload }
   },
   // Special reducer for hydrating the state
   extraReducers: {
@@ -36,9 +37,9 @@ export const appSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { increment, setIsOpenSideBar, setAloId } = appSlice.actions
+export const { increment, setIsOpenSideBar, setAloId, setSidebarItem } = appSlice.actions
 export const isOpenSideBar = (state: AppState) => state.app.uiConfig.isOpenSideBar
-export const testSelector = (state: AppState) => state.app.uiConfig.test
+export const getSidebarItemSelected = (state: AppState) => state.app.uiConfig.sidebarItemSelected
 export const valueSel = (state: AppState) => state.app.value
 export const getAloId = (state: AppState) => state.app.aloId
 

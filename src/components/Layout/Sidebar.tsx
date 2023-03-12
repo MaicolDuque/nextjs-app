@@ -1,12 +1,19 @@
-import { ALO_APPS } from "@helpers/constants";
-import { getAloId, isOpenSideBar, setIsOpenSideBar } from "@store/slices/appSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from 'react-redux'
+import { IconHome, IconUsers, IconShoppingCart } from '@tabler/icons-react'
+
+import { ALO_APPS } from '@helpers/constants'
+import {
+  getAloId,
+  isOpenSideBar,
+  setIsOpenSideBar,
+} from '@store/slices/appSlice'
+import { SidebarItem } from './SidebarItem'
 
 export function Sidebar() {
-  const isOpen = useSelector(isOpenSideBar);
-  const aloId = useSelector(getAloId);
+  const isOpen = useSelector(isOpenSideBar)
+  const aloId = useSelector(getAloId)
   const titleDashboard = ALO_APPS[aloId]?.title
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
   return (
     <>
       <div className="flex">
@@ -47,79 +54,15 @@ export function Sidebar() {
               </svg>
 
               <span className="mx-2 text-2xl font-semibold text-white">
-                { titleDashboard }
+                {titleDashboard}
               </span>
             </div>
           </div>
 
           <nav className="mt-10">
-            {/* Link */}
-            {/*
-inactiveClass: border-gray-900 text-gray-500 hover:bg-gray-600 hover:bg-opacity-25 hover:text-gray-100
-activeClass: bg-gray-600 bg-opacity-25 text-gray-100 border-gray-100
-*/}
-            <div className="flex items-center px-6 py-2 mt-4 duration-200 border-l-4 border-gray-900 text-gray-500 hover:bg-gray-600 hover:bg-opacity-25 hover:text-gray-100">
-              <svg
-                className="w-5 h-5"
-                viewBox="0 0 20 20"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M2 10C2 5.58172 5.58172 2 10 2V10H18C18 14.4183 14.4183 18 10 18C5.58172 18 2 14.4183 2 10Z"
-                  fill="currentColor"
-                />
-                <path
-                  d="M12 2.25195C14.8113 2.97552 17.0245 5.18877 17.748 8.00004H12V2.25195Z"
-                  fill="currentColor"
-                />
-              </svg>
-
-              <span className="mx-4 cursor-pointer">Dashboard</span>
-            </div>
-
-            <div
-              className="flex items-center px-6 py-2 mt-4 duration-200 border-l-4
-              bg-gray-600 bg-opacity-25 text-gray-100 border-gray-100"
-            >
-              <svg
-                className="w-5 h-5"
-                viewBox="0 0 20 20"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M2 10C2 5.58172 5.58172 2 10 2V10H18C18 14.4183 14.4183 18 10 18C5.58172 18 2 14.4183 2 10Z"
-                  fill="currentColor"
-                />
-                <path
-                  d="M12 2.25195C14.8113 2.97552 17.0245 5.18877 17.748 8.00004H12V2.25195Z"
-                  fill="currentColor"
-                />
-              </svg>
-
-              <span className="mx-4 cursor-pointer">Usuarios</span>
-            </div>
-
-            <div className="flex items-center px-6 py-2 mt-4 duration-200 border-l-4 border-gray-900 text-gray-500 hover:bg-gray-600 hover:bg-opacity-25 hover:text-gray-100">
-              <svg
-                className="w-5 h-5"
-                viewBox="0 0 20 20"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M2 10C2 5.58172 5.58172 2 10 2V10H18C18 14.4183 14.4183 18 10 18C5.58172 18 2 14.4183 2 10Z"
-                  fill="currentColor"
-                />
-                <path
-                  d="M12 2.25195C14.8113 2.97552 17.0245 5.18877 17.748 8.00004H12V2.25195Z"
-                  fill="currentColor"
-                />
-              </svg>
-
-              <span className="mx-4 cursor-pointer">Productos</span>
-            </div>
+            <SidebarItem url='/dashboard' text="Inicio" icon={<IconHome />} />
+            <SidebarItem url='/dashboard/suppliers' text="Proveedores" icon={<IconUsers />} />
+            <SidebarItem url='/dashboard/products' text="Productos" icon={<IconShoppingCart />} />
           </nav>
         </div>
       </div>
