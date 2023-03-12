@@ -3,6 +3,9 @@ import { authUser } from '../services/user.service'
 import { User, UserContext } from '../models/models'
 import Cookies from 'js-cookie'
 import { useRouter } from 'next/router'
+import { apiSlice } from '@store/api/apiSlice'
+import { useDispatch } from 'react-redux'
+
 
 const AuthContext = createContext<UserContext | null>(null)
 
@@ -18,6 +21,7 @@ export const useAuth = () => {
 function useProvideAuth(){
   const [user, setUser] = useState<User | null>(null)
   const router = useRouter()
+  const dispatch = useDispatch()
 
   const singnIn = async (email: string, password: string) => {
     try {
@@ -31,6 +35,7 @@ function useProvideAuth(){
 
   const signOut = () => {
     Cookies.remove('token')
+    dispatch(apiSlice.util.resetApiState())
     router.push('/')
   }
 
