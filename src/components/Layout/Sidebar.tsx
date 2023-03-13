@@ -1,19 +1,28 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { IconHome, IconUsers, IconShoppingCart } from '@tabler/icons-react'
+import { useEffect } from 'react'
+import { useRouter } from 'next/router'
 
 import { ALO_APPS } from '@helpers/constants'
 import {
   getAloId,
   isOpenSideBar,
   setIsOpenSideBar,
+  setSidebarItem,
 } from '@store/slices/appSlice'
 import { SidebarItem } from './SidebarItem'
 
 export function Sidebar() {
   const isOpen = useSelector(isOpenSideBar)
   const aloId = useSelector(getAloId)
+  const router = useRouter()
   const titleDashboard = ALO_APPS[aloId]?.title
   const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(setSidebarItem(router.pathname))
+  }, [])
+
   return (
     <>
       <div className="flex">
@@ -60,9 +69,17 @@ export function Sidebar() {
           </div>
 
           <nav className="mt-10">
-            <SidebarItem url='/dashboard' text="Inicio" icon={<IconHome />} />
-            <SidebarItem url='/dashboard/suppliers' text="Proveedores" icon={<IconUsers />} />
-            <SidebarItem url='/dashboard/products' text="Productos" icon={<IconShoppingCart />} />
+            <SidebarItem url="/dashboard" text="Inicio" icon={<IconHome />} />
+            <SidebarItem
+              url="/dashboard/suppliers"
+              text="Proveedores"
+              icon={<IconUsers />}
+            />
+            <SidebarItem
+              url="/dashboard/products"
+              text="Productos"
+              icon={<IconShoppingCart />}
+            />
           </nav>
         </div>
       </div>
