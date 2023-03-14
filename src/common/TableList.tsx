@@ -1,27 +1,50 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 interface Props {
   title: string
   dataHeader: Array<string>
   dataBody: Array<Record<string, any>>
   withSearch?: boolean
-  textButtonCreate?: string;
-  onAddNew?: () => void;
+  searchProperty?: string
+  textButtonCreate?: string
+  showActions?: boolean
+  actions?: { action: string; icon: React.ReactNode }[]
+  onAddNew?: () => void
+  onClickAction?: (action: string, data: Record<string, any>) => void
 }
 
 export function TableList({
   title,
   textButtonCreate,
   withSearch,
+  searchProperty,
   dataBody,
   dataHeader,
-  onAddNew
+  showActions,
+  actions,
+  onAddNew,
+  onClickAction,
 }: Props) {
   const [properties, setProperties] = useState<string[]>([])
+  const [search, setSearch] = useState('')
+
+  const dataFiltered = useMemo(() => {
+    const searchLower = search.toLocaleLowerCase()
+    return dataBody.filter((item) =>
+      (item[searchProperty ?? ''] as string)
+        .toLocaleLowerCase()
+        ?.includes(searchLower)
+    )
+  }, [search, dataBody])
+
   useEffect(() => {
     const keys = Object.keys(dataBody?.[0])
     setProperties(keys)
   }, [dataBody.length])
+
+  const handleClickAction = (action: string, data: Record<string, any>) => {
+    if (onClickAction) onClickAction(action, data)
+  }
 
   return (
     <>
@@ -37,15 +60,19 @@ export function TableList({
                 <input
                   className="bg-gray-50 outline-none ml-1 block"
                   type="text"
-                  name=""
-                  id=""
-                  placeholder="search..."
+                  name="search"
+                  id="search"
+                  onChange={(e) => setSearch(e.target.value)}
+                  placeholder="Buscar..."
                 />
               </div>
             )}
             <div className="lg:ml-40 ml-10 space-x-8">
               {textButtonCreate && (
-                <button onClick={onAddNew} className="bg-indigo-600 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer">
+                <button
+                  onClick={onAddNew}
+                  className="bg-indigo-600 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer"
+                >
                   {textButtonCreate}
                 </button>
               )}
@@ -69,17 +96,28 @@ export function TableList({
                         </th>
                       )
                     })}
+                    {showActions && (
+                      <th
+                        key="actions-th"
+                        className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
+                      >
+                        Actions
+                      </th>
+                    )}
                   </tr>
                 </thead>
                 <tbody>
-                  {dataBody.map((data, index) => {
+                  {dataFiltered.map((data, index) => {
                     return (
-                      <tr key={data.id} className="bg-black">
+                      <tr
+                        key={data.id}
+                        className="odd:bg-white even:bg-slate-50"
+                      >
                         {properties.map((info, indexD) => {
                           return (
                             <td
                               key={data.id + '-' + info}
-                              className="px-5 py-5 border-b border-gray-200 bg-white text-sm hover:bg-gray-50"
+                              className="px-5 py-5 border-b border-gray-200 bg-white text-sm"
                             >
                               <p className="text-gray-900 whitespace-no-wrap">
                                 {data[properties[indexD]]}
@@ -87,6 +125,25 @@ export function TableList({
                             </td>
                           )
                         })}
+                        {showActions && (
+                          <td
+                            key={'actions-' + data.id}
+                            className="px-5 py-5 border-b border-gray-200 bg-white text-sm flex gap-2"
+                          >
+                            {actions?.map((action) => (
+                              <span
+                                key={action.action}
+                                className="cursor-pointer"
+                                title={action.action}
+                                onClick={() =>
+                                  handleClickAction(action.action, data)
+                                }
+                              >
+                                {action.icon}
+                              </span>
+                            ))}
+                          </td>
+                        )}
                       </tr>
                     )
                   })}
