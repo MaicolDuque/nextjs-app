@@ -1,5 +1,7 @@
-import { IconPencil, IconTrash } from '@tabler/icons-react'
-import { TableList } from '../../common/TableList'
+import { IconPencil, IconTrash, IconUserPlus } from '@tabler/icons-react'
+import { useState } from 'react'
+import { AloModal } from '../../common/AloModal'
+import { AloTableList } from '../../common/AloTableList'
 
 export default function Suppliers() {
   const dataHeader: string[] = [
@@ -49,19 +51,24 @@ export default function Suppliers() {
     { action: 'edit', icon: <IconPencil /> },
     { action: 'delete', icon: <IconTrash /> },
   ]
+
+  const [open, setOpen] = useState(false)
+
   return (
     <>
-      <TableList
+      <AloModal open={open} setOpen={setOpen} />
+      <AloTableList
         title="Lista de proveedores"
-        textButtonCreate="Agregar proveedor"
+        textButtonCreate={'Agregar proveedor'}
+        iconButtonCreate={<IconUserPlus/>}
         dataBody={dataBody}
         dataHeader={dataHeader}
         actions={actions}
         showActions={true}
         withSearch={true}
-        searchProperty='name'
-        onAddNew={() => console.log('nuevooo')}
-        onClickAction={(action, data) => console.log('eeeee',action, data)}
+        searchProperty="name"
+        onAddNew={() => setOpen(true)}
+        onClickAction={(action, data) => console.log('eeeee', action, data)}
       />
     </>
   )

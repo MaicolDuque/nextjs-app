@@ -6,16 +6,18 @@ interface Props {
   dataBody: Array<Record<string, any>>
   withSearch?: boolean
   searchProperty?: string
-  textButtonCreate?: string
+  textButtonCreate?: any;
+  iconButtonCreate?: React.ReactNode;
   showActions?: boolean
   actions?: { action: string; icon: React.ReactNode }[]
   onAddNew?: () => void
   onClickAction?: (action: string, data: Record<string, any>) => void
 }
 
-export function TableList({
+export function AloTableList({
   title,
   textButtonCreate,
+  iconButtonCreate,
   withSearch,
   searchProperty,
   dataBody,
@@ -71,8 +73,9 @@ export function TableList({
               {textButtonCreate && (
                 <button
                   onClick={onAddNew}
-                  className="bg-indigo-600 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer"
+                  className="bg-indigo-600 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer flex gap-3"
                 >
+                  {iconButtonCreate}
                   {textButtonCreate}
                 </button>
               )}
