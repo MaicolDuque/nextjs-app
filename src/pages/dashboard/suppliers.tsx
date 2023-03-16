@@ -56,11 +56,19 @@ export default function Suppliers() {
 
   return (
     <>
-      <AloModal open={open} setOpen={setOpen} />
+      <AloModal
+        open={open}
+        setOpen={setOpen}
+        title="Agregar Proveedor"
+        textCancelButton="Cancelar"
+        textSaveButton="Guardar"
+        onSave={() => console.log('saveeee !!')}>
+          <h3>Infoooo</h3>
+      </AloModal>
       <AloTableList
         title="Lista de proveedores"
         textButtonCreate={'Agregar proveedor'}
-        iconButtonCreate={<IconUserPlus/>}
+        iconButtonCreate={<IconUserPlus />}
         dataBody={dataBody}
         dataHeader={dataHeader}
         actions={actions}
