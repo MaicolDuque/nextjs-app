@@ -1,6 +1,7 @@
 interface Props {
   text: string
   type?: 'outline' | 'fill'
+  disabled?: boolean
   onClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
 }
 const classByType: Record<string, string> = {
@@ -9,10 +10,22 @@ const classByType: Record<string, string> = {
   fill: 'text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800',
 }
 
-export function AloButton({ text, onClick, type = 'fill' }: Props) {
+export function AloButton({
+  text,
+  onClick,
+  type = 'fill',
+  disabled = false,
+}: Props) {
   return (
     <>
-      <button onClick={onClick} type="button" className={classByType[type]}>
+      <button
+        disabled={disabled}
+        onClick={onClick}
+        type="button"
+        className={`${classByType[type]} ${
+          disabled ? ' pointer-events-none opacity-80' : ''
+        }`}
+      >
         {text}
       </button>
     </>

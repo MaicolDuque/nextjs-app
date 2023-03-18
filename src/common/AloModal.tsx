@@ -1,28 +1,21 @@
-import { AloButton } from "./AloButton";
+import React from 'react'
+import { AloButton } from './AloButton'
 
 interface Props {
   title: string
-  textCancelButton?: string
-  textSaveButton?: string
-  open: boolean;
+  open: boolean
   children: React.ReactNode
+  footer?: React.ReactNode
   setOpen: (open: boolean) => void
-  onSave: () => void
 }
+
 export function AloModal({
   open,
-  setOpen,
-  onSave,
   title,
-  textCancelButton,
-  textSaveButton,
-  children
+  footer,
+  children,
+  setOpen,
 }: Props) {
-
-  const handleSaveButton = () => {
-    setOpen(false)
-    onSave()
-  }
   return (
     <>
       {/* <!-- This is an example component --> */}
@@ -62,18 +55,13 @@ export function AloModal({
                 </button>
               </div>
               {/* <!-- Modal body --> */}
-              <div className="p-6 space-y-6">
-                {children}
-              </div>
+              <div className="p-6 space-y-6">{children}</div>
               {/* <!-- Modal footer --> */}
-              <div className="flex space-x-2 justify-end p-6 border-t border-gray-200 rounded-b ">
-                {textCancelButton && (
-                  <AloButton text={textCancelButton} onClick={(_e) => setOpen(false)} type='outline' />
-                )}
-                {textSaveButton && (
-                  <AloButton text={textSaveButton} onClick={(_e) => handleSaveButton()} type='fill' />
-                )}
-              </div>
+              {footer && (
+                <div className="flex space-x-2 justify-end p-6 border-t border-gray-200 rounded-b ">
+                  {footer}
+                </div>
+              )}
             </div>
           </div>
         </div>

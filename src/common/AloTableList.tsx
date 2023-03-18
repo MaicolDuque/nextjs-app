@@ -9,6 +9,8 @@ interface Props {
   textButtonCreate?: any;
   iconButtonCreate?: React.ReactNode;
   showActions?: boolean
+  alternateColor?: boolean;
+  hover?: boolean;
   actions?: { action: string; icon: React.ReactNode }[]
   onAddNew?: () => void
   onClickAction?: (action: string, data: Record<string, any>) => void
@@ -24,6 +26,8 @@ export function AloTableList({
   dataHeader,
   showActions,
   actions,
+  alternateColor = true,
+  hover = false,
   onAddNew,
   onClickAction,
 }: Props) {
@@ -58,9 +62,9 @@ export function AloTableList({
           </div>
           <div className="flex items-center justify-between">
             {withSearch && (
-              <div className="flex bg-gray-50 items-center p-2 rounded-md">
+              <div className="flex bg-gray-100 items-center p-2 rounded-md">
                 <input
-                  className="bg-gray-50 outline-none ml-1 block"
+                  className="bg-gray-100 outline-none ml-1 block"
                   type="text"
                   name="search"
                   id="search"
@@ -93,7 +97,7 @@ export function AloTableList({
                       return (
                         <th
                           key={header}
-                          className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
+                          className="px-5 py-3 border-b-2 border-gray-300 bg-gray-200 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
                         >
                           {header}
                         </th>
@@ -102,7 +106,7 @@ export function AloTableList({
                     {showActions && (
                       <th
                         key="actions-th"
-                        className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
+                        className="px-5 py-3 border-b-2 border-gray-300 bg-gray-200 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
                       >
                         Actions
                       </th>
@@ -114,13 +118,13 @@ export function AloTableList({
                     return (
                       <tr
                         key={data.id}
-                        className="odd:bg-white even:bg-slate-50"
+                        className={`${alternateColor && 'odd:bg-white even:bg-slate-50'} ${hover && 'hover:bg-gray-50'}`}
                       >
                         {properties.map((info, indexD) => {
                           return (
                             <td
                               key={data.id + '-' + info}
-                              className="px-5 py-5 border-b border-gray-200 bg-white text-sm"
+                              className="px-5 py-5 border-b border-gray-200  text-sm"
                             >
                               <p className="text-gray-900 whitespace-no-wrap">
                                 {data[properties[indexD]]}
@@ -131,7 +135,7 @@ export function AloTableList({
                         {showActions && (
                           <td
                             key={'actions-' + data.id}
-                            className="px-5 py-5 border-b border-gray-200 bg-white text-sm flex gap-2"
+                            className="px-5 py-5 border-b border-gray-200  text-sm flex gap-2"
                           >
                             {actions?.map((action) => (
                               <span
