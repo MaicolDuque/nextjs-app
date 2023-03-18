@@ -3,8 +3,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { AloTableList } from '@common/AloTableList'
 import { useState } from 'react'
-import { AddSupplierModal } from '../../../modules/suppliers/components/AddSupplierModal'
-import { EditSupplierModal } from '../../../modules/suppliers/components/EditSupplierModal'
+import { AddEditSupplierModal } from '@modules/suppliers/components/AddEditSupplierModal'
 
 export default function Suppliers() {
   const dataHeader: string[] = [
@@ -70,23 +69,28 @@ export default function Suppliers() {
   const [supplier, setSupplier] = useState({})
 
   const handleAction = (action: string, data: Record<string, any>) => {
+    console.log({data})
     if (action === 'edit') {
       setSupplier(data)
       setOpenEditModal(true)
+    }
+    if(action === 'delete'){
+      alert('Delete User: '+data.id)
     }
   }
 
   return (
     <>
       {openSaveModal && (
-        <AddSupplierModal open={openSaveModal} setOpen={setOpenSaveModal} />
+        <AddEditSupplierModal open={openSaveModal} setOpen={setOpenSaveModal}  />
       )}
 
       {openEditModal && (
-        <EditSupplierModal
+        <AddEditSupplierModal
           open={openEditModal}
           setOpen={setOpenEditModal}
           supplier={supplier}
+          isEditing={true}
         />
       )}
       <AloTableList
