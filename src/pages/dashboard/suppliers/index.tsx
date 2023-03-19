@@ -18,16 +18,7 @@ export default function Suppliers() {
     {
       id: 0,
       name: 'Maicol',
-      lastName: (
-        <>
-          <Image
-            alt="text"
-            src="https://yt3.googleusercontent.com/qr-eUsJkK-gtUnIeSWMeyBuAI0AYmIAijDD4LK6J7GiLxGRkTwEwSP0NjhVZK_z7NI691EDlmnU=s900-c-k-c0x00ffffff-no-rj"
-            width={100}
-            height={100}
-          ></Image>
-        </>
-      ),
+      lastName: 'Maicol',
       edad: 17,
       city: 'Medellín',
       type: 'Cargadores',

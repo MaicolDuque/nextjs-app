@@ -3,14 +3,14 @@ import { useEffect, useMemo, useState } from 'react'
 interface Props {
   title: string
   dataHeader: Array<string>
-  dataBody: Array<Record<string, any>>
+  dataBody: Array<any>
   withSearch?: boolean
   searchProperty?: string
-  textButtonCreate?: any;
-  iconButtonCreate?: React.ReactNode;
+  textButtonCreate?: any
+  iconButtonCreate?: React.ReactNode
   showActions?: boolean
-  alternateColor?: boolean;
-  hover?: boolean;
+  alternateColor?: boolean
+  hover?: boolean
   actions?: { action: string; icon: React.ReactNode }[]
   onAddNew?: () => void
   onClickAction?: (action: string, data: Record<string, any>) => void
@@ -38,13 +38,13 @@ export function AloTableList({
     const searchLower = search.toLocaleLowerCase()
     return dataBody.filter((item) =>
       (item[searchProperty ?? ''] as string)
-        .toLocaleLowerCase()
+        ?.toLocaleLowerCase()
         ?.includes(searchLower)
     )
   }, [search, dataBody])
 
   useEffect(() => {
-    const keys = Object.keys(dataBody?.[0])
+    const keys = Object.keys(dataBody?.[0] ?? {})
     setProperties(keys)
   }, [dataBody.length])
 
@@ -118,7 +118,9 @@ export function AloTableList({
                     return (
                       <tr
                         key={data.id}
-                        className={`${alternateColor && 'odd:bg-white even:bg-slate-50'} ${hover && 'hover:bg-gray-50'}`}
+                        className={`${
+                          alternateColor && 'odd:bg-white even:bg-slate-50'
+                        } ${hover && 'hover:bg-gray-50'}`}
                       >
                         {properties.map((info, indexD) => {
                           return (
@@ -135,20 +137,22 @@ export function AloTableList({
                         {showActions && (
                           <td
                             key={'actions-' + data.id}
-                            className="px-5 py-5 border-b border-gray-200  text-sm flex gap-2"
+                            className="px-5 py-5 border-b border-gray-200  text-sm"
                           >
-                            {actions?.map((action) => (
-                              <span
-                                key={action.action}
-                                className="cursor-pointer"
-                                title={action.action}
-                                onClick={() =>
-                                  handleClickAction(action.action, data)
-                                }
-                              >
-                                {action.icon}
-                              </span>
-                            ))}
+                            <div className="flex gap-2">
+                              {actions?.map((action) => (
+                                <span
+                                  key={action.action}
+                                  className="cursor-pointer"
+                                  title={action.action}
+                                  onClick={() =>
+                                    handleClickAction(action.action, data)
+                                  }
+                                >
+                                  {action.icon}
+                                </span>
+                              ))}
+                            </div>
                           </td>
                         )}
                       </tr>
