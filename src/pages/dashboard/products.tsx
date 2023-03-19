@@ -1,5 +1,5 @@
 import { AloTableList } from '@common/AloTableList'
-import { AddEditSupplierModal } from '@modules/suppliers/components/AddEditSupplierModal'
+import { AddEditProductModal } from '@modules/products/components/AddEditProductModal'
 import { useGetProductsQuery } from '@store/api/products/productsApi'
 import {
   IconPencil,
@@ -36,12 +36,12 @@ export default function Products() {
 
   const [openSaveModal, setOpenSaveModal] = useState(false)
   const [openEditModal, setOpenEditModal] = useState(false)
-  const [supplier, setSupplier] = useState({})
+  const [product, setProduct] = useState({})
 
   const handleAction = (action: string, data: Record<string, any>) => {
     console.log({ data })
     if (action === 'edit') {
-      setSupplier(data)
+      setProduct(data)
       setOpenEditModal(true)
     }
     if (action === 'delete') {
@@ -52,14 +52,14 @@ export default function Products() {
   return (
     <>
       {openSaveModal && (
-        <AddEditSupplierModal open={openSaveModal} setOpen={setOpenSaveModal} />
+        <AddEditProductModal open={openSaveModal} setOpen={setOpenSaveModal} />
       )}
 
       {openEditModal && (
-        <AddEditSupplierModal
+        <AddEditProductModal
           open={openEditModal}
           setOpen={setOpenEditModal}
-          supplier={supplier}
+          product={product}
           isEditing={true}
         />
       )}
@@ -72,7 +72,7 @@ export default function Products() {
         actions={actions}
         showActions={true}
         withSearch={true}
-        searchProperty="title"
+        searchProperties={["title", 'description']}
         onAddNew={() => setOpenSaveModal(true)}
         onClickAction={handleAction}
       />

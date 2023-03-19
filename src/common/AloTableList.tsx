@@ -6,6 +6,7 @@ interface Props {
   dataBody: Array<any>
   withSearch?: boolean
   searchProperty?: string
+  searchProperties?: string[]
   textButtonCreate?: any
   iconButtonCreate?: React.ReactNode
   showActions?: boolean
@@ -21,6 +22,7 @@ export function AloTableList({
   textButtonCreate,
   iconButtonCreate,
   withSearch,
+  searchProperties,
   searchProperty,
   dataBody,
   dataHeader,
@@ -35,12 +37,13 @@ export function AloTableList({
   const [search, setSearch] = useState('')
 
   const dataFiltered = useMemo(() => {
+    if(!withSearch) return dataBody
     const searchLower = search.toLocaleLowerCase()
-    return dataBody.filter((item) =>
-      (item[searchProperty ?? ''] as string)
-        ?.toLocaleLowerCase()
-        ?.includes(searchLower)
-    )
+    return dataBody.filter((item) => {
+      return searchProperties?.some(propertie => {
+        return (item[propertie] as string)?.toLocaleLowerCase()?.includes(searchLower)
+      })
+    })
   }, [search, dataBody])
 
   useEffect(() => {

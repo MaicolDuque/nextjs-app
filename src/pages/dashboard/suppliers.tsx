@@ -93,7 +93,7 @@ export default function Suppliers() {
         actions={actions}
         showActions={true}
         withSearch={true}
-        searchProperty="name"
+        searchProperties={["name"]}
         onAddNew={() => setOpenSaveModal(true)}
         onClickAction={handleAction}
       />
