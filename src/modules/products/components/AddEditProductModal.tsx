@@ -1,8 +1,8 @@
 import { AloButton } from '@common/AloButton'
 import { AloInput } from '@common/AloInput'
+import { AloInputFileImages } from '@common/AloInputFileImages'
 import { AloModal } from '@common/AloModal'
 import { AloSelect } from '@common/AloSelect'
-import { useEffect, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
 interface Props {
@@ -93,19 +93,7 @@ export function AddEditProductModal({
             labelText="Selecciona sexo"
           />
 
-          {/* <label
-            className="block mb-2 text-sm font-medium text-gray-900"
-            htmlFor="multiple_files"
-          >
-            Cargar imagenes
-          </label>
-          <input
-            className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 "
-            id="multiple_files"
-            type="file"
-            multiple
-          /> */}
-
+          <AloInputFileImages label='Agregar imagenes' />
         </form>
       </AloModal>
     </>
