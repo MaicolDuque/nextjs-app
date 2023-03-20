@@ -7,7 +7,9 @@ module.exports = {
   content: [],
   theme: {
     colors: {
-      ...colors
+      ...colors,
+      'alo-primary': 'var(--alo-primary-color)',
+      'alo-secundary': 'var(--alo-secundary-color)'
     },
     extend: {},
   },

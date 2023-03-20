@@ -37,7 +37,7 @@ export function AloInput({
           id={label}
           placeholder={placeholder}
           className="appearance-none border-2 border-gray-200 rounded-lg px-4 py-3
-          placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:shadow-lg"
+          placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-alo-primary focus:shadow-lg"
         />
       </div>
     </>

@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
+import { AloButton } from './AloButton'
 
 interface Props {
   title: string
@@ -37,11 +38,13 @@ export function AloTableList({
   const [search, setSearch] = useState('')
 
   const dataFiltered = useMemo(() => {
-    if(!withSearch) return dataBody
+    if (!withSearch) return dataBody
     const searchLower = search.toLocaleLowerCase()
     return dataBody.filter((item) => {
-      return searchProperties?.some(propertie => {
-        return (item[propertie] as string)?.toLocaleLowerCase()?.includes(searchLower)
+      return searchProperties?.some((propertie) => {
+        return (item[propertie] as string)
+          ?.toLocaleLowerCase()
+          ?.includes(searchLower)
       })
     })
   }, [search, dataBody])
@@ -67,7 +70,7 @@ export function AloTableList({
             {withSearch && (
               <div className="flex bg-gray-100 items-center p-2 rounded-md">
                 <input
-                  className="bg-gray-100 outline-none ml-1 block"
+                  className="bg-gray-100 outline-none ml-1 block "
                   type="text"
                   name="search"
                   id="search"
@@ -78,13 +81,12 @@ export function AloTableList({
             )}
             <div className="lg:ml-40 ml-10 space-x-8">
               {textButtonCreate && (
-                <button
-                  onClick={onAddNew}
-                  className="bg-indigo-600 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer flex gap-3"
-                >
-                  {iconButtonCreate}
-                  {textButtonCreate}
-                </button>
+                <AloButton
+                  onClick={() => onAddNew && onAddNew()}
+                  classes="font-semibold text-base flex gap-3"
+                  text={textButtonCreate}
+                  icon={iconButtonCreate}
+                />
               )}
             </div>
           </div>
