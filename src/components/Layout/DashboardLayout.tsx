@@ -1,9 +1,8 @@
 import { Header } from '@components/Layout/Header'
 import { Sidebar } from '@components/Layout/Sidebar'
-import { useGetSuppliersQuery } from '@store/api/apiSlice'
+import { useGetProfileQuery } from '@store/api/apiSlice'
 
 export function DashboardLayout({ children }: { children: React.ReactNode }) {
-  const { data: suppliers } = useGetSuppliersQuery(undefined)
   return (
     <>
       <div className="flex h-screen bg-gray-200 font-roboto">

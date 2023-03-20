@@ -8,10 +8,10 @@ export const apiSlice = createApi({
   refetchOnReconnect: true,
   baseQuery: fetchBaseQuery({ baseUrl: process.env.NEXT_PUBLIC_API_URL, headers }),
   endpoints: (builder) => ({
-    getSuppliers: builder.query<Supplier[], undefined>({
-      query: () => '/users?limit=5'
+    getProfile: builder.query({
+      query: () => '/auth/profile'
     })
   })
 })
 
-export const { useGetSuppliersQuery } = apiSlice
+export const { useGetProfileQuery } = apiSlice

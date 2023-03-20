@@ -4,15 +4,16 @@ import { useRouter } from 'next/router'
 import { AloTableList } from '@common/AloTableList'
 import { useState } from 'react'
 import { AddEditSupplierModal } from '@modules/suppliers/components/AddEditSupplierModal'
+import { useGetSuppliersQuery } from '@store/api/suppliers/suppliersApi'
 
 export default function Suppliers() {
   const dataHeader: string[] = [
     'Id',
+    'Avatar',
     'Nombre',
-    'Apellido',
-    'Edad',
-    'Ciudad',
-    'Tipo',
+    'Correo',
+    'Rol',
+    'Fecha creación',
   ]
   const dataBody: any[] = [
     {
@@ -58,22 +59,24 @@ export default function Suppliers() {
   const [openSaveModal, setOpenSaveModal] = useState(false)
   const [openEditModal, setOpenEditModal] = useState(false)
   const [supplier, setSupplier] = useState({})
+  const { data: suppliersData } = useGetSuppliersQuery(undefined)
 
+  console.log({ suppliersData })
   const handleAction = (action: string, data: Record<string, any>) => {
-    console.log({data})
+    console.log({ data })
     if (action === 'edit') {
       setSupplier(data)
       setOpenEditModal(true)
     }
-    if(action === 'delete'){
-      alert('Delete User: '+data.id)
+    if (action === 'delete') {
+      alert('Delete User: ' + data.id)
     }
   }
 
   return (
     <>
       {openSaveModal && (
-        <AddEditSupplierModal open={openSaveModal} setOpen={setOpenSaveModal}  />
+        <AddEditSupplierModal open={openSaveModal} setOpen={setOpenSaveModal} />
       )}
 
       {openEditModal && (
@@ -88,12 +91,12 @@ export default function Suppliers() {
         title="Lista de proveedores"
         textButtonCreate={'Agregar proveedor'}
         iconButtonCreate={<IconUserPlus />}
-        dataBody={dataBody}
+        dataBody={(suppliersData ?? []) as Record<string, unknown>[]}
         dataHeader={dataHeader}
         actions={actions}
         showActions={true}
         withSearch={true}
-        searchProperties={["name"]}
+        searchProperties={['name']}
         onAddNew={() => setOpenSaveModal(true)}
         onClickAction={handleAction}
       />
