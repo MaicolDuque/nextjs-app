@@ -1,3 +1,5 @@
+import { AloTable } from '@common/AloTable'
+import { AloTableVirtualized } from '@common/AloTableVirtualized'
 import { useGetProfileQuery } from '@store/api/apiSlice'
 import { increment, valueSel } from '@store/slices/appSlice'
 import { useDispatch, useSelector } from 'react-redux'
@@ -12,6 +14,9 @@ export default function Dashboard() {
       <button onClick={() => dispatch(increment())}>➕</button>
       <div>Hello World !!</div>
       {JSON.stringify(profileInfo)}
+      {/* <AloTable /> */}
+
+      <AloTableVirtualized />
     </>
   )
 }

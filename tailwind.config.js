@@ -8,7 +8,7 @@ module.exports = {
   theme: {
     colors: {
       ...colors,
-      'alo-primary': 'var(--alo-primary-color)',
+      'alo-primary': 'var(--alo-primary-color, #101827)',
       'alo-secundary': 'var(--alo-secundary-color)'
     },
     extend: {},

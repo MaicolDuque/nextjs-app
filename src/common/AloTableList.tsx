@@ -68,9 +68,10 @@ export function AloTableList({
           </div>
           <div className="flex items-center justify-between">
             {withSearch && (
-              <div className="flex bg-gray-100 items-center p-2 rounded-md">
+              <div className="flex items-center p-2 rounded-md">
                 <input
-                  className="bg-gray-100 outline-none ml-1 block "
+                  className=" my-4 appearance-none border-2 border-gray-200 rounded-lg px-4 py-3
+                  placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-alo-primary focus:shadow-lg"
                   type="text"
                   name="search"
                   id="search"
