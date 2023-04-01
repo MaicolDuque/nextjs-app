@@ -1,8 +1,12 @@
 import { Header } from '@components/Layout/Header'
 import { Sidebar } from '@components/Layout/Sidebar'
 import { useGetProfileQuery } from '@store/api/apiSlice'
+import { useEffect } from 'react'
 
 export function DashboardLayout({ children }: { children: React.ReactNode }) {
+  useEffect(() => {
+    document.body.style.setProperty("--alo-primary-color", "green")
+  }, [])
   return (
     <>
       <div className="flex h-screen bg-gray-200 font-roboto">

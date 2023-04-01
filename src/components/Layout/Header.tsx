@@ -79,13 +79,13 @@ export function Header() {
               >
                 <a
                   href="#"
-                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white"
+                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-alo-primary hover:text-white"
                 >
                   Profile
                 </a>
                 <div
                   onClick={() => auth?.signOut()}
-                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white cursor-pointer"
+                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-alo-primary hover:text-white cursor-pointer"
                 >
                   Logout
                 </div>
