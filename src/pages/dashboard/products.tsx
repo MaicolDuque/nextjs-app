@@ -1,4 +1,4 @@
-import { AloTableList } from '@common/AloTableList'
+import { AloTableList } from '@components/AloTableList'
 import { AddEditProductModal } from '@modules/products/components/AddEditProductModal'
 import { useGetProductsQuery } from '@store/api/products/productsApi'
 import {

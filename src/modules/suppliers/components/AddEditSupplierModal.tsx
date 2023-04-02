@@ -1,7 +1,7 @@
-import { AloButton } from '@common/AloButton'
-import { AloInput } from '@common/AloInput'
-import { AloModal } from '@common/AloModal'
-import { AloSelect } from '@common/AloSelect'
+import { AloButton } from '@components/AloButton'
+import { AloInput } from '@components/AloInput'
+import { AloModal } from '@components/AloModal'
+import { AloSelect } from '@components/AloSelect'
 import { useEffect, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 

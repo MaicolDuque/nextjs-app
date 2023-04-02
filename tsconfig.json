@@ -20,7 +20,6 @@
       "@helpers/*": ["./src/helpers/*"],
       "@hooks/*": ["./src/hooks/*"],
       "@store/*": ["./src/store/*"],
-      "@common/*": ["./src/common/*"],
       "@modules/*": ["./src/modules/*"],
     }
   },

@@ -1,7 +1,7 @@
 import { IconPencil, IconTrash, IconUserPlus } from '@tabler/icons-react'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-import { AloTableList } from '@common/AloTableList'
+import { AloTableList } from '@components/AloTableList'
 import { useState } from 'react'
 import { AddEditSupplierModal } from '@modules/suppliers/components/AddEditSupplierModal'
 import { useGetSuppliersQuery } from '@store/api/suppliers/suppliersApi'

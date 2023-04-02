@@ -1,8 +1,8 @@
-import { AloButton } from '@common/AloButton'
-import { AloInput } from '@common/AloInput'
-import { AloInputFileImages } from '@common/AloInputFileImages'
-import { AloModal } from '@common/AloModal'
-import { AloSelect } from '@common/AloSelect'
+import { AloButton } from '@components/AloButton'
+import { AloInput } from '@components/AloInput'
+import { AloInputFileImages } from '@components/AloInputFileImages'
+import { AloModal } from '@components/AloModal'
+import { AloSelect } from '@components/AloSelect'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
 interface Props {
