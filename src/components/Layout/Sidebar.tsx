@@ -1,5 +1,10 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { IconHome, IconUsers, IconShoppingCart } from '@tabler/icons-react'
+import {
+  IconHome,
+  IconUsers,
+  IconShoppingCart,
+  IconMenu2,
+} from '@tabler/icons-react'
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 
@@ -25,11 +30,11 @@ export function Sidebar() {
 
   return (
     <>
-      <div className="flex">
+      <div className={`flex ${isOpen ? 'block' : 'hidden'} `}>
         {/* <!-- Backdrop --> */}
         <div
           className={`${
-            isOpen ? 'block' : 'hidden'
+            isOpen ? 'visible' : 'invisible'
           } fixed inset-0 z-20 transition-opacity bg-black opacity-50 lg:hidden`}
           onClick={() => dispatch(setIsOpenSideBar(false))}
         ></div>
@@ -83,6 +88,11 @@ export function Sidebar() {
           </nav>
         </div>
       </div>
+      <IconMenu2
+        onClick={() => dispatch(setIsOpenSideBar(!isOpen))}
+        className={`absolute top-3 z-30 ${ isOpen ? 'left-64' : 'left-1' }`}
+        color="black"
+      />
     </>
   )
 }

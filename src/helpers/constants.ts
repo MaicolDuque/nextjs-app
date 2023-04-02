@@ -2,7 +2,7 @@
 
 export const ALO_APPS: Record<string, any> = {
   'alo-mobile': {
-    image: 'https://instagram.feoh1-1.fna.fbcdn.net/v/t51.2885-19/326500843_481214920868220_2909157582924248465_n.jpg?stp=dst-jpg_s320x320&_nc_ht=instagram.feoh1-1.fna.fbcdn.net&_nc_cat=100&_nc_ohc=zpNsbbv9DecAX_sZGql&edm=AOQ1c0wBAAAA&ccb=7-5&oh=00_AfDEWSesvnNPCaTp3DvSlfs7YJ5V8dC3xnctu8jJA9H01A&oe=640BEF70&_nc_sid=8fd12b',
+    image: 'https://scontent.feoh1-1.fna.fbcdn.net/v/t39.30808-6/292736219_415077500636884_2803119125756144827_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=09cbfe&_nc_eui2=AeFifiGuXSFqPkYzFNTLjXqAEecuC3hxwwsR5y4LeHHDC7IgR3kX6cQSFxAx-5i_P2I&_nc_ohc=v4232IfIB40AX_iKjSv&_nc_ht=scontent.feoh1-1.fna&oh=00_AfB4rZkxLA4-UQPrR1p50VjoCioEFrPoAI0HvFCpuKbGGg&oe=642D83DF',
     alt: "alomobilectg's profile picture",
     title: 'Alo Mobile',
   },

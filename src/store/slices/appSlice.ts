@@ -8,7 +8,7 @@ const initialState: CounterState = {
   value: 30,
   aloId: '',
   uiConfig: {
-    isOpenSideBar: false,
+    isOpenSideBar: true,
     sidebarItemSelected: '/dashboard'
   }
 }

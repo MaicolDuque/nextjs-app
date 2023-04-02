@@ -9,7 +9,7 @@ import {
 import Image from 'next/image'
 import { useState } from 'react'
 
-export default function Products() {
+export default function ProductsPage() {
   const dataHeader: string[] = ['Id', 'Image', 'Title', 'Price', 'Descripcion']
   const actions = [
     { action: 'edit', icon: <IconPencil /> },
