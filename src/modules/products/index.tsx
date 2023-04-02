@@ -37,7 +37,7 @@ export default function Products() {
           isEditing={true}
         />
       )}
-      <AloTableVirtualized columns={columns} data={data ?? []} />
+      <AloTableVirtualized columns={columns} data={data ?? []} rowHeight={140} />
       {/* <AloTableList
         title="Lista de Productos"
         textButtonCreate={'Agregar producto'}

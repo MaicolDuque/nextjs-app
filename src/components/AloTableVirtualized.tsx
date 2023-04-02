@@ -7,7 +7,7 @@ import {
   SortingState,
   useReactTable,
 } from '@tanstack/react-table'
-import { useRef, useState } from 'react'
+import { useCallback, useRef, useState } from 'react'
 import { useVirtual } from 'react-virtual'
 
 import estilos from './styles.module.css'
@@ -17,13 +17,15 @@ type Props = {
   data: any[];
   withSeatch?: boolean;
   height?: string;
+  rowHeight?: number;
 }
 
 export function AloTableVirtualized({
   columns,
   data,
   withSeatch = true,
-  height = '70vh'
+  height = '70vh',
+  rowHeight = 35
 }: Props) {
   const [sorting, setSorting] = useState<SortingState>([])
   const [globalFilter, setGlobalFilter] = useState('')
@@ -55,6 +57,7 @@ export function AloTableVirtualized({
   const tableContainerRef = useRef<HTMLDivElement>(null)
   const rowVirtualizer = useVirtual({
     parentRef: tableContainerRef,
+    estimateSize: useCallback(() => rowHeight, []),
     size: rows.length,
     overscan: 10,
   })
@@ -81,7 +84,7 @@ export function AloTableVirtualized({
           />
         )}
         <div ref={tableContainerRef} className={estilos.container} style={{ height }}>
-          <table className="min-w-full leading-normal">
+          <table className="min-w-full leading-normal"  style={{ height: '100%' }}>
             <thead className="sticky m-0 top-0">
               {table.getHeaderGroups().map((headerGroup) => (
                 <tr key={headerGroup.id} className="hover:bg-green-200">

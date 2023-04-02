@@ -5,7 +5,7 @@ export const productsApiSlice = apiSlice.injectEndpoints({
   overrideExisting: true,
   endpoints: builder => ({
     getProducts: builder.query<Product[], undefined>({
-      query: () => '/products?limit=10&offset=0',
+      query: () => '/products?limit=100&offset=0',
       transformResponse(baseQueryReturnValue: Product[]) {
         return baseQueryReturnValue
       },
