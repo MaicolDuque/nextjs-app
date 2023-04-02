@@ -4,6 +4,8 @@ import {
   IconUsers,
   IconShoppingCart,
   IconMenu2,
+  IconChevronDownRight,
+  IconBuildingWarehouse,
 } from '@tabler/icons-react'
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
@@ -85,12 +87,33 @@ export function Sidebar() {
               text="Productos"
               icon={<IconShoppingCart />}
             />
+            {/* <details className="group mt-4 pl-1">
+              <summary
+                className="flex justify-between items-center font-medium cursor-pointer list-none px-6 py-2
+                      border-gray-900 text-gray-500 hover:bg-gray-600 hover:bg-opacity-25 hover:text-gray-100"
+              >
+                <div className="flex gap-4">
+                  <IconBuildingWarehouse />
+                  <div>Inventario</div>
+                </div>
+                <IconChevronDownRight className="transition group-open:rotate-45 -rotate-45" />
+              </summary>
+              <p className="text-neutral-600 mt-3 group-open:animate-fadeIn">
+                <SidebarItem
+                  url="/dashboard/products"
+                  text="Productos"
+                  icon={<IconShoppingCart />}
+                />
+              </p>
+            </details> */}
           </nav>
         </div>
       </div>
       <IconMenu2
         onClick={() => dispatch(setIsOpenSideBar(!isOpen))}
-        className={`absolute top-3 z-30 ${ isOpen ? 'left-64' : 'left-1' } cursor-pointer`}
+        className={`absolute top-3 z-30 ${
+          isOpen ? 'left-64' : 'left-1'
+        } cursor-pointer`}
         color="black"
       />
     </>
