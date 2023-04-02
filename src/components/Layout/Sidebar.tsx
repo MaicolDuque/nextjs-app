@@ -90,7 +90,7 @@ export function Sidebar() {
       </div>
       <IconMenu2
         onClick={() => dispatch(setIsOpenSideBar(!isOpen))}
-        className={`absolute top-3 z-30 ${ isOpen ? 'left-64' : 'left-1' }`}
+        className={`absolute top-3 z-30 ${ isOpen ? 'left-64' : 'left-1' } cursor-pointer`}
         color="black"
       />
     </>

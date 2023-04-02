@@ -1,5 +1,5 @@
 import {
-  createColumnHelper,
+  ColumnDef,
   flexRender,
   getCoreRowModel,
   getFilteredRowModel,
@@ -12,59 +12,19 @@ import { useVirtual } from 'react-virtual'
 
 import estilos from './styles.module.css'
 
-type Person = {
-  firstName: string
-  lastName: string
-  age: number
-  visits: number
-  status: string
-  progress: number
+type Props = {
+  columns: ColumnDef<any, any>[]
+  data: any[];
+  withSeatch?: boolean;
+  height?: string;
 }
 
-const defaultData: Person[] = Array(50000)
-  .fill(0)
-  .map((_val, idx) => {
-    return {
-      firstName: 'tanner ' + idx,
-      lastName: 'linsley',
-      age: 24 + idx,
-      visits: 100 + idx,
-      status: 'In Relationship ' + idx,
-      progress: 50 + idx,
-    }
-  })
-
-const columnHelper = createColumnHelper<Person>()
-const columns = [
-  columnHelper.accessor('firstName', {
-    cell: (info) => info.getValue(),
-  }),
-  columnHelper.accessor((row) => row.lastName, {
-    id: 'lastName',
-    cell: (info) => <i>{info.getValue()}</i>,
-    header: () => <span>Last Name</span>,
-  }),
-  columnHelper.accessor('age', {
-    id: 'age',
-    header: () => 'Age',
-    cell: (info) => info.renderValue(),
-  }),
-  columnHelper.accessor('visits', {
-    header: () => <span>Visits</span>,
-    aggregatedCell: (r) => r.renderValue()?.toString,
-    cell: (info) => info.renderValue(),
-  }),
-  columnHelper.accessor('status', {
-    header: 'Status',
-  }),
-  columnHelper.accessor('progress', {
-    header: 'Profile Progress',
-    cell: (info) => info.renderValue(),
-  }),
-]
-
-export function AloTableVirtualized() {
-  const [data, setData] = useState(() => [...defaultData])
+export function AloTableVirtualized({
+  columns,
+  data,
+  withSeatch = true,
+  height = '70vh'
+}: Props) {
   const [sorting, setSorting] = useState<SortingState>([])
   const [globalFilter, setGlobalFilter] = useState('')
 
@@ -109,16 +69,18 @@ export function AloTableVirtualized() {
   return (
     <>
       <div>
-        <input
-          className=" my-4 appearance-none border-2 border-gray-200 rounded-lg px-4 py-3
-         placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-alo-primary focus:shadow-lg"
-          type="text"
-          value={globalFilter ?? ''}
-          placeholder="Buscar.."
-          name="search"
-          onChange={(e) => setGlobalFilter(String(e.target.value))}
-        />
-        <div ref={tableContainerRef} className={estilos.container}>
+        {withSeatch && (
+          <input
+            className=" my-4 appearance-none border-2 border-gray-200 rounded-lg px-4 py-3 w-1/3
+          placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-alo-primary focus:shadow-lg"
+            type="text"
+            value={globalFilter ?? ''}
+            placeholder="Buscar.."
+            name="search"
+            onChange={(e) => setGlobalFilter(String(e.target.value))}
+          />
+        )}
+        <div ref={tableContainerRef} className={estilos.container} style={{ height }}>
           <table className="min-w-full leading-normal">
             <thead className="sticky m-0 top-0">
               {table.getHeaderGroups().map((headerGroup) => (
@@ -162,12 +124,12 @@ export function AloTableVirtualized() {
                         className="px-5 py-5 border-b border-gray-200  text-sm"
                         key={cell.id}
                       >
-                        <p className="text-gray-900 whitespace-no-wrap">
+                        <div className="text-gray-900 whitespace-no-wrap">
                           {flexRender(
                             cell.column.columnDef.cell,
                             cell.getContext()
                           )}
-                        </p>
+                        </div>
                       </td>
                     ))}
                   </tr>
