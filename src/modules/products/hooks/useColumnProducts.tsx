@@ -7,16 +7,22 @@ import { createColumnHelper } from '@tanstack/react-table'
 
 const columnHelper = createColumnHelper<Product>()
 
-export function useColumnProducts(data: any[] | undefined) {
+export function useColumnProducts(data: Product[] | undefined) {
   const [openEditModal, setOpenEditModal] = useState(false)
+  const [openConfirmationModal, setOpenConfirmationModal] = useState(false)
+  const [currentProduct, setCurrentProduct] = useState<Product | undefined>()
 
   const handleEdit = (id: string | number) => {
+    const currentProduct = data?.find(product => product.id === id) as Product
     console.log('Ediitt ', id)
+    setCurrentProduct(currentProduct)
     setOpenEditModal(true)
   }
 
   const handleDelete = (id: string | number) => {
-    console.log('Delete', id)
+    const currentProduct = data?.find(product => product.id === id) as Product
+    setCurrentProduct(currentProduct)
+    setOpenConfirmationModal(true)
   }
 
   const columns = useMemo(
@@ -69,5 +75,12 @@ export function useColumnProducts(data: any[] | undefined) {
     [data]
   )
 
-  return { columns, openEditModal, setOpenEditModal }
+  return {
+    columns,
+    openEditModal,
+    setOpenEditModal,
+    openConfirmationModal,
+    setOpenConfirmationModal,
+    currentProduct
+  }
 }
