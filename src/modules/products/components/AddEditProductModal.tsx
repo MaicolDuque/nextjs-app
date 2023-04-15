@@ -3,6 +3,7 @@ import { AloInput } from '@components/AloInput'
 import { AloInputFileImages } from '@components/AloInputFileImages'
 import { AloModal } from '@components/AloModal'
 import { AloSelect } from '@components/AloSelect'
+import { useUpdateProductMutation } from '@store/api/products/productsApi'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
 interface Props {
@@ -23,13 +24,15 @@ export function AddEditProductModal({
   product,
   isEditing = false,
 }: Props) {
+  const [ updateProduct ] = useUpdateProductMutation()
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm()
   const onSubmit: SubmitHandler<any> = (data) => {
-    alert(JSON.stringify(data))
+    const productUpdated = { ...product, ...data }
+    updateProduct(productUpdated)
     setOpen(false)
   }
 
@@ -57,13 +60,15 @@ export function AddEditProductModal({
             <AloInput
               register={register}
               label="Titulo"
+              name="title"
               errors={errors}
               value={product?.title as string}
             />
             <AloInput
               value={product?.description as string}
               register={register}
-              label="Apellido"
+              label="Descripción"
+              name="description"
               errors={errors}
               required={false}
             />
@@ -73,25 +78,26 @@ export function AddEditProductModal({
             type="number"
             value={product?.price as number}
             label="Precio"
+            name="price"
             errors={errors}
             required={false}
           />
-          <AloInput
+          {/* <AloInput
             register={register}
             type="text"
             label="Ciudad"
             value={product?.city as string}
             errors={errors}
             required={false}
-          />
-          <AloSelect
+          /> */}
+          {/* <AloSelect
             defaultValue="M"
             options={options}
             register={register}
             errors={errors}
             label="sexo"
             labelText="Selecciona sexo"
-          />
+          /> */}
 
           <AloInputFileImages label='Agregar imagenes' />
         </form>
