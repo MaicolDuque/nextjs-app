@@ -14,18 +14,20 @@ import estilos from './styles.module.css'
 
 type Props = {
   columns: ColumnDef<any, any>[]
-  data: any[];
-  withSeatch?: boolean;
-  height?: string;
-  rowHeight?: number;
+  data: any[]
+  withSeatch?: boolean
+  height?: string
+  rowHeight?: number
+  headerContent?: React.ReactNode
 }
 
 export function AloTableVirtualized({
   columns,
   data,
+  headerContent,
   withSeatch = true,
   height = '70vh',
-  rowHeight = 35
+  rowHeight = 35,
 }: Props) {
   const [sorting, setSorting] = useState<SortingState>([])
   const [globalFilter, setGlobalFilter] = useState('')
@@ -72,19 +74,29 @@ export function AloTableVirtualized({
   return (
     <>
       <div>
-        {withSeatch && (
-          <input
-            className=" my-4 appearance-none border-2 border-gray-200 rounded-lg px-4 py-3 w-1/3
-          placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-alo-primary focus:shadow-lg"
-            type="text"
-            value={globalFilter ?? ''}
-            placeholder="Buscar.."
-            name="search"
-            onChange={(e) => setGlobalFilter(String(e.target.value))}
-          />
-        )}
-        <div ref={tableContainerRef} className={estilos.container} style={{ height }}>
-          <table className="min-w-full leading-normal"  style={{ height: '100%' }}>
+        <div className='flex justify-between items-center'>
+          {withSeatch && (
+            <input
+              className=" my-4 appearance-none border-2 border-gray-200 rounded-lg px-4 py-3 w-1/3
+            placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-alo-primary focus:shadow-lg"
+              type="text"
+              value={globalFilter ?? ''}
+              placeholder="Buscar.."
+              name="search"
+              onChange={(e) => setGlobalFilter(String(e.target.value))}
+            />
+          )}
+          {headerContent ? headerContent : null}
+        </div>
+        <div
+          ref={tableContainerRef}
+          className={estilos.container}
+          style={{ height }}
+        >
+          <table
+            className="min-w-full leading-normal"
+            style={{ height: '100%' }}
+          >
             <thead className="sticky m-0 top-0">
               {table.getHeaderGroups().map((headerGroup) => (
                 <tr key={headerGroup.id} className="hover:bg-green-200">

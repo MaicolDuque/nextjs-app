@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import { AloButton } from '@components/AloButton'
+import { IconPlus } from '@tabler/icons-react'
 
 import { AloTableVirtualized } from '@components/AloTableVirtualized'
 import { AddEditProductModal } from '@modules/products/components/AddEditProductModal'
@@ -21,6 +23,11 @@ export default function Products() {
   const handleDeleteProduct = () => {
     console.log('delete user =>', currentProduct)
     setOpenConfirmationModal(false)
+  }
+
+  const onAddNewProduct = () => {
+    console.log('Add product!!')
+    setOpenSaveModal(true)
   }
 
   return (
@@ -52,6 +59,14 @@ export default function Products() {
         columns={columns}
         data={data ?? []}
         rowHeight={140}
+        headerContent={
+          <AloButton
+            onClick={() => onAddNewProduct()}
+            classes="font-semibold text-base flex gap-3"
+            text='Agregar producto'
+            icon={<IconPlus />}
+          />
+        }
       />
     </>
   )

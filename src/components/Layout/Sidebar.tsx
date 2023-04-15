@@ -4,8 +4,6 @@ import {
   IconUsers,
   IconShoppingCart,
   IconMenu2,
-  IconChevronDownRight,
-  IconBuildingWarehouse,
 } from '@tabler/icons-react'
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'

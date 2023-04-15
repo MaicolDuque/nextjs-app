@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 import { ALO_APPS, DEFAULT_ALT, DEFAULT_IMG } from '@helpers/constants'
 import { useAuth } from '@hooks/userContext'
 import { useDispatch } from 'react-redux'
-import { setAloId } from '@store/slices/appSlice'
+import { setAloId, setShowLoading } from '@store/slices/appSlice'
 
 export function Login({ aloId }: { aloId: string }) {
   const auth = useAuth()
@@ -21,13 +21,19 @@ export function Login({ aloId }: { aloId: string }) {
     const email = emailRef.current?.value ?? ''
     const password = passwordRef.current?.value ?? ''
     const aloid = aloidRef.current?.value ?? aloId
+    dispatch(setShowLoading(true))
     auth
       ?.singnIn(email, password)
-      .then((_) => {
+      .then((user) => {
+        console.log({ user, aloId })
+        dispatch(setShowLoading(false))
         dispatch(setAloId(aloid))
         router.push('/dashboard')
       })
-      .catch((error) => console.error({ error }))
+      .catch((error) => {
+        dispatch(setShowLoading(false))
+        console.error({ error })
+      })
   }
 
   return (
