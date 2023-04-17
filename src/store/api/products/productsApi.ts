@@ -21,10 +21,19 @@ export const productsApiSlice = apiSlice.injectEndpoints({
         }
       },
       // Invalidates all queries that subscribe to this Post `id` only.
-      // In this case, `getPost` will be re-run. `getProducts` *might*  rerun, if this id was under its results.
+      // In this case, `getProducts` will be re-run. `getProducts` *might*  rerun, if this id was under its results.
       invalidatesTags: (result, error, { id }) => [{ type: 'Products', id: 'LIST' }]
+    }),
+    deleteProduct: builder.mutation<{ success: boolean; id: number }, number>({
+      query(id) {
+        return {
+          url: `/products/${id}`,
+          method: 'DELETE',
+        }
+      },
+      invalidatesTags: (result, error, id) => [{ type: 'Products', id: 'LIST' }],
     })
   })
 })
 
-export const { useGetProductsQuery, useUpdateProductMutation } = productsApiSlice
+export const { useGetProductsQuery, useUpdateProductMutation, useDeleteProductMutation } = productsApiSlice

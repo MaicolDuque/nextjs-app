@@ -4,13 +4,17 @@ import { IconPlus } from '@tabler/icons-react'
 
 import { AloTableVirtualized } from '@components/AloTableVirtualized'
 import { AddEditProductModal } from '@modules/products/components/AddEditProductModal'
-import { useGetProductsQuery } from '@store/api/products/productsApi'
+import {
+  useDeleteProductMutation,
+  useGetProductsQuery,
+} from '@store/api/products/productsApi'
 import { useColumnProducts } from './hooks/useColumnProducts'
 import AloConfirmationModal from '@components/AloConfirmationModal'
 
 export default function Products() {
   const { data } = useGetProductsQuery(undefined)
   const [openSaveModal, setOpenSaveModal] = useState(false)
+  const [deleteProduct] = useDeleteProductMutation()
   const {
     columns,
     openEditModal,
@@ -21,7 +25,7 @@ export default function Products() {
   } = useColumnProducts(data)
 
   const handleDeleteProduct = () => {
-    console.log('delete user =>', currentProduct)
+    deleteProduct(currentProduct?.id as number)
     setOpenConfirmationModal(false)
   }
 
@@ -63,7 +67,7 @@ export default function Products() {
           <AloButton
             onClick={() => onAddNewProduct()}
             classes="font-semibold text-base flex gap-3"
-            text='Agregar producto'
+            text="Agregar producto"
             icon={<IconPlus />}
           />
         }
