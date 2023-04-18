@@ -37,7 +37,7 @@ export default function Products() {
   return (
     <>
       {openSaveModal && (
-        <AddEditProductModal open={openSaveModal} setOpen={setOpenSaveModal} />
+        <AddEditProductModal open={openSaveModal} setOpen={setOpenSaveModal} isEditing={false} />
       )}
 
       {openEditModal && (

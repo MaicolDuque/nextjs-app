@@ -12,7 +12,7 @@ export const productsApiSlice = apiSlice.injectEndpoints({
       providesTags: (_result) => [{ type: 'Products', id: 'LIST' }],
     }),
     updateProduct: builder.mutation<Product, Product>({
-      query(post){
+      query(post) {
         const { id, ...body } = post
         return {
           url: `/products/${id}`,
@@ -32,8 +32,19 @@ export const productsApiSlice = apiSlice.injectEndpoints({
         }
       },
       invalidatesTags: (result, error, id) => [{ type: 'Products', id: 'LIST' }],
-    })
+    }),
+
+    addProduct: builder.mutation<Product, Partial<Product>>({
+      query(body) {
+        return {
+          url: `/products`,
+          method: 'POST',
+          body,
+        }
+      },
+      invalidatesTags: [{ type: 'Products', id: 'LIST' }],
+    }),
   })
 })
 
-export const { useGetProductsQuery, useUpdateProductMutation, useDeleteProductMutation } = productsApiSlice
+export const { useGetProductsQuery, useUpdateProductMutation, useDeleteProductMutation, useAddProductMutation } = productsApiSlice

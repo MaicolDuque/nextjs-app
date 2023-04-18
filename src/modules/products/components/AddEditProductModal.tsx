@@ -3,7 +3,10 @@ import { AloInput } from '@components/AloInput'
 import { AloInputFileImages } from '@components/AloInputFileImages'
 import { AloModal } from '@components/AloModal'
 import { AloSelect } from '@components/AloSelect'
-import { useUpdateProductMutation } from '@store/api/products/productsApi'
+import {
+  useAddProductMutation,
+  useUpdateProductMutation,
+} from '@store/api/products/productsApi'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
 interface Props {
@@ -24,15 +27,30 @@ export function AddEditProductModal({
   product,
   isEditing = false,
 }: Props) {
-  const [ updateProduct ] = useUpdateProductMutation()
+  const [updateProduct] = useUpdateProductMutation()
+  const [addProduct] = useAddProductMutation()
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm()
+
   const onSubmit: SubmitHandler<any> = (data) => {
     const productUpdated = { ...product, ...data }
-    updateProduct(productUpdated)
+    console.log({ data, productUpdated })
+    if (isEditing) updateProduct(productUpdated)
+    if (!isEditing) {
+      const pro = {
+        ...productUpdated,
+        categoryId: 1,
+        images: [
+          'https://picsum.photos/640/640?r=9495',
+          'https://picsum.photos/640/640?r=5955',
+          'https://picsum.photos/640/640?r=1730',
+        ],
+      }
+      addProduct(pro)
+    }
     setOpen(false)
   }
 
@@ -99,7 +117,7 @@ export function AddEditProductModal({
             labelText="Selecciona sexo"
           /> */}
 
-          <AloInputFileImages label='Agregar imagenes' />
+          <AloInputFileImages label="Agregar imagenes" />
         </form>
       </AloModal>
     </>
