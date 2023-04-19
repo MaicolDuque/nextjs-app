@@ -6,6 +6,7 @@ import '../styles/talwind.css'
 import { ProviderAuth } from '@hooks/userContext'
 import { DashboardLayout } from '@components/Layout/DashboardLayout'
 import { useAuthenticated } from '@hooks/useAuthenticated'
+import { Toaster } from 'sonner'
 
 export default function App({ Component, ...rest }: AppProps) {
   const { isAuthenticated } = useAuthenticated()
@@ -14,6 +15,7 @@ export default function App({ Component, ...rest }: AppProps) {
   return (
     <Provider store={store}>
       <ProviderAuth>
+      <Toaster richColors  />
         {isAuthenticated ? (
           <DashboardLayout>
             <Component {...pageProps} />

@@ -1,3 +1,5 @@
+import { toast } from 'sonner'
+
 import { AloButton } from '@components/AloButton'
 import { AloInput } from '@components/AloInput'
 import { AloInputFileImages } from '@components/AloInputFileImages'
@@ -38,7 +40,14 @@ export function AddEditProductModal({
   const onSubmit: SubmitHandler<any> = (data) => {
     const productUpdated = { ...product, ...data }
     console.log({ data, productUpdated })
-    if (isEditing) updateProduct(productUpdated)
+    if (isEditing) {
+      updateProduct(productUpdated).then(_ => {
+        toast.success('Producto actualizado correctamente!')
+      })
+      .catch(_ => {
+        toast.error('Error actualizando el producto')
+      })
+    }
     if (!isEditing) {
       const pro = {
         ...productUpdated,
