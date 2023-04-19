@@ -1,13 +1,19 @@
+import { toast } from 'sonner'
+
 import { AloButton } from '@components/AloButton'
 import { AloInput } from '@components/AloInput'
+import { AloInputFileImages } from '@components/AloInputFileImages'
 import { AloModal } from '@components/AloModal'
 import { AloSelect } from '@components/AloSelect'
-import { useEffect, useState } from 'react'
+import {
+  useAddProductMutation,
+  useUpdateProductMutation,
+} from '@store/api/products/productsApi'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
 interface Props {
   open: boolean
-  supplier?: Record<string, unknown>
+  product?: Record<string, unknown>
   isEditing?: boolean
   setOpen: (open: boolean) => void
 }
@@ -20,16 +26,40 @@ const options = [
 export function AddEditSupplierModal({
   open,
   setOpen,
-  supplier,
+  product,
   isEditing = false,
 }: Props) {
+  const [updateProduct] = useUpdateProductMutation()
+  const [addProduct] = useAddProductMutation()
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm()
+
   const onSubmit: SubmitHandler<any> = (data) => {
-    alert(JSON.stringify(data))
+    const productUpdated = { ...product, ...data }
+    console.log({ data, productUpdated })
+    if (isEditing) {
+      updateProduct(productUpdated).then(_ => {
+        toast.success('Producto actualizado correctamente!')
+      })
+      .catch(_ => {
+        toast.error('Error actualizando el producto')
+      })
+    }
+    if (!isEditing) {
+      const pro = {
+        ...productUpdated,
+        categoryId: 1,
+        images: [
+          'https://picsum.photos/640/640?r=9495',
+          'https://picsum.photos/640/640?r=5955',
+          'https://picsum.photos/640/640?r=1730',
+        ],
+      }
+      addProduct(pro)
+    }
     setOpen(false)
   }
 
@@ -49,21 +79,23 @@ export function AddEditSupplierModal({
       <AloModal
         open={open}
         setOpen={setOpen}
-        title={`${isEditing ? 'Editar' : 'Agregar'} Proveedor`}
+        title={`${isEditing ? 'Editar' : 'Agregar'} Producto`}
         footer={footer}
       >
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="flex gap-2">
             <AloInput
               register={register}
-              label="Nombre"
+              label="Titulo"
+              name="title"
               errors={errors}
-              value={supplier?.name as string}
+              value={product?.title as string}
             />
             <AloInput
-              value={supplier?.lastName as string}
+              value={product?.description as string}
               register={register}
-              label="Apellido"
+              label="Descripción"
+              name="description"
               errors={errors}
               required={false}
             />
@@ -71,27 +103,30 @@ export function AddEditSupplierModal({
           <AloInput
             register={register}
             type="number"
-            value={supplier?.edad as string}
-            label="Age"
+            value={product?.price as number}
+            label="Precio"
+            name="price"
             errors={errors}
             required={false}
           />
-          <AloInput
+          {/* <AloInput
             register={register}
             type="text"
             label="Ciudad"
-            value={supplier?.city as string}
+            value={product?.city as string}
             errors={errors}
             required={false}
-          />
-          <AloSelect
+          /> */}
+          {/* <AloSelect
             defaultValue="M"
             options={options}
             register={register}
             errors={errors}
             label="sexo"
             labelText="Selecciona sexo"
-          />
+          /> */}
+
+          <AloInputFileImages label="Agregar imagenes" />
         </form>
       </AloModal>
     </>

@@ -3,7 +3,7 @@ export type Supplier = {
   name: string;
   email: string;
   avatar: string;
-  rol: string;
+  role: string;
   password?: string;
   creationAt?: string;
   updatedAt?: string;

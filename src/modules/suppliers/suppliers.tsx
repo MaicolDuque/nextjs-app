@@ -8,11 +8,12 @@ import {
   useDeleteProductMutation,
   useGetProductsQuery,
 } from '@store/api/products/productsApi'
-import { useColumnProducts } from './hooks/useColumnProducts'
 import AloConfirmationModal from '@components/AloConfirmationModal'
+import { useColumnSuppliers } from './hooks/useColumnSuppliers'
+import { useGetSuppliersQuery } from '@store/api/suppliers/suppliersApi'
 
-export default function Products() {
-  const { data } = useGetProductsQuery(undefined)
+export default function Suppliers() {
+  const { data } = useGetSuppliersQuery(undefined)
   const [openSaveModal, setOpenSaveModal] = useState(false)
   const [deleteProduct] = useDeleteProductMutation()
   const {
@@ -22,7 +23,7 @@ export default function Products() {
     openConfirmationModal,
     setOpenConfirmationModal,
     currentProduct,
-  } = useColumnProducts(data)
+  } = useColumnSuppliers(data)
 
   const handleDeleteProduct = () => {
     deleteProduct(currentProduct?.id as number)

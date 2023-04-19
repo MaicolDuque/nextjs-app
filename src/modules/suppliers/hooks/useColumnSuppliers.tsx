@@ -1,0 +1,74 @@
+import { useMemo, useState } from 'react'
+import Image from 'next/image'
+
+import { Supplier } from '@store/api/types/Supplier'
+import { IconPencil, IconTrash } from '@tabler/icons-react'
+import { createColumnHelper } from '@tanstack/react-table'
+
+const columnHelper = createColumnHelper<Supplier>()
+
+export function useColumnSuppliers(data: Supplier[] | undefined) {
+  const [openEditModal, setOpenEditModal] = useState(false)
+  const [openConfirmationModal, setOpenConfirmationModal] = useState(false)
+  const [currentProduct, setCurrentProduct] = useState<Supplier | undefined>()
+
+  const handleEdit = (id: string | number) => {
+    const currentProduct = data?.find(product => product.id === id) as Supplier
+    console.log('Ediitt ', id)
+    setCurrentProduct(currentProduct)
+    setOpenEditModal(true)
+  }
+
+  const handleDelete = (id: string | number) => {
+    const currentProduct = data?.find(product => product.id === id) as Supplier
+    setCurrentProduct(currentProduct)
+    setOpenConfirmationModal(true)
+  }
+
+  const columns = useMemo(
+    () => [
+      columnHelper.accessor('id', {
+        cell: (value) => value.renderValue(),
+      }),
+      columnHelper.accessor('name', {
+        header: () => 'Nombre',
+        cell: (info) => info.getValue(),
+      }),
+      columnHelper.accessor('email', {
+        header: () => 'Correo',
+        cell: (info) => info.getValue(),
+      }),
+      columnHelper.accessor('role', {
+        header: () => 'Rol',
+        cell: (info) => info.getValue(),
+      }),
+      columnHelper.accessor('id', {
+        id: 'id2',
+        enableSorting: false,
+        cell: (value) => (
+          <div className="flex gap-1">
+            <IconPencil
+              className="cursor-pointer"
+              onClick={() => handleEdit(value.row.original.id)}
+            />
+            <IconTrash
+              className="cursor-pointer"
+              onClick={() => handleDelete(value.row.original.id)}
+            />
+          </div>
+        ),
+        header: () => 'Acciones',
+      }),
+    ],
+    [data]
+  )
+
+  return {
+    columns,
+    openEditModal,
+    setOpenEditModal,
+    openConfirmationModal,
+    setOpenConfirmationModal,
+    currentProduct
+  }
+}
