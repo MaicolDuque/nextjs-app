@@ -23,7 +23,18 @@ export const productsApiSlice = apiSlice.injectEndpoints({
       },
       invalidatesTags: (result, error, id) => [{ type: 'Suppliers', id: 'LIST' }],
     }),
+
+    addSupplier: builder.mutation<Supplier, Partial<Supplier>>({
+      query(body) {
+        return {
+          url: `/users`,
+          method: 'POST',
+          body,
+        }
+      },
+      invalidatesTags: [{ type: 'Suppliers', id: 'LIST' }],
+    }),
   })
 })
 
-export const { useGetSuppliersQuery, useDeleteSupplierMutation } = productsApiSlice
+export const { useGetSuppliersQuery, useDeleteSupplierMutation, useAddSupplierMutation } = productsApiSlice

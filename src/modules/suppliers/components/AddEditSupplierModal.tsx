@@ -4,11 +4,9 @@ import { AloButton } from '@components/AloButton'
 import { AloInput } from '@components/AloInput'
 import { AloModal } from '@components/AloModal'
 import { AloSelect } from '@components/AloSelect'
-import {
-  useAddProductMutation,
-  useUpdateProductMutation,
-} from '@store/api/products/productsApi'
+import { useUpdateProductMutation } from '@store/api/products/productsApi'
 import { SubmitHandler, useForm } from 'react-hook-form'
+import { useAddSupplierMutation } from '@store/api/suppliers/suppliersApi'
 
 interface Props {
   open: boolean
@@ -29,7 +27,7 @@ export function AddEditSupplierModal({
   isEditing = false,
 }: Props) {
   const [updateProduct] = useUpdateProductMutation()
-  const [addProduct] = useAddProductMutation()
+  const [addSupplier] = useAddSupplierMutation()
   const {
     register,
     handleSubmit,
@@ -37,28 +35,22 @@ export function AddEditSupplierModal({
   } = useForm()
 
   const onSubmit: SubmitHandler<any> = (data) => {
-    const productUpdated = { ...product, ...data }
-    console.log({ data, productUpdated })
+    const supplierUpdated = { ...product, ...data }
+    console.log({ data, supplierUpdated })
     if (isEditing) {
-      updateProduct(productUpdated)
-        .then((_) => {
-          toast.success('Producto actualizado correctamente!')
-        })
-        .catch((_) => {
-          toast.error('Error actualizando el producto')
-        })
+      updateProduct(supplierUpdated)
+        .then((_) => toast.success('Producto actualizado correctamente!'))
+        .catch((_) => toast.error('Error actualizando el producto'))
     }
     if (!isEditing) {
-      const pro = {
-        ...productUpdated,
-        categoryId: 1,
-        images: [
-          'https://picsum.photos/640/640?r=9495',
-          'https://picsum.photos/640/640?r=5955',
-          'https://picsum.photos/640/640?r=1730',
-        ],
+      console.log({ supplierUpdated })
+      const info = {
+        ...supplierUpdated,
+        avatar: 'https://picsum.photos/640/640?r=9922',
       }
-      addProduct(pro)
+      addSupplier(info)
+        .then((_) => toast.success('Proveedor agregado correctamente!'))
+        .catch((_) => toast.error('Error agregando el proveedor'))
     }
     setOpen(false)
   }
@@ -97,16 +89,25 @@ export function AddEditSupplierModal({
               label="Correo"
               name="email"
               errors={errors}
-              required={false}
+              required={true}
             />
           </div>
+          <AloInput
+            value={product?.email as string}
+            register={register}
+            label="Contraseña"
+            name="password"
+            type="password"
+            errors={errors}
+            required={true}
+          />
           <AloSelect
             defaultValue={product?.role as string}
             options={options}
             register={register}
             errors={errors}
-            label="sexo"
-            labelText="Selecciona sexo"
+            label="role"
+            labelText="Rol"
           />
           {/* <AloInput
             register={register}
