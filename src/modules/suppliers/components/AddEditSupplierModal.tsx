@@ -2,7 +2,6 @@ import { toast } from 'sonner'
 
 import { AloButton } from '@components/AloButton'
 import { AloInput } from '@components/AloInput'
-import { AloInputFileImages } from '@components/AloInputFileImages'
 import { AloModal } from '@components/AloModal'
 import { AloSelect } from '@components/AloSelect'
 import {
@@ -19,8 +18,8 @@ interface Props {
 }
 
 const options = [
-  { id: 1, value: 'M', label: 'Masculino' },
-  { id: 2, value: 'F', label: 'Femenino' },
+  { id: 1, value: 'admin', label: 'Admin' },
+  { id: 2, value: 'customer', label: 'Customer' },
 ]
 
 export function AddEditSupplierModal({
@@ -41,12 +40,13 @@ export function AddEditSupplierModal({
     const productUpdated = { ...product, ...data }
     console.log({ data, productUpdated })
     if (isEditing) {
-      updateProduct(productUpdated).then(_ => {
-        toast.success('Producto actualizado correctamente!')
-      })
-      .catch(_ => {
-        toast.error('Error actualizando el producto')
-      })
+      updateProduct(productUpdated)
+        .then((_) => {
+          toast.success('Producto actualizado correctamente!')
+        })
+        .catch((_) => {
+          toast.error('Error actualizando el producto')
+        })
     }
     if (!isEditing) {
       const pro = {
@@ -86,28 +86,27 @@ export function AddEditSupplierModal({
           <div className="flex gap-2">
             <AloInput
               register={register}
-              label="Titulo"
-              name="title"
+              label="Nombre"
+              name="name"
               errors={errors}
-              value={product?.title as string}
+              value={product?.name as string}
             />
             <AloInput
-              value={product?.description as string}
+              value={product?.email as string}
               register={register}
-              label="Descripción"
-              name="description"
+              label="Correo"
+              name="email"
               errors={errors}
               required={false}
             />
           </div>
-          <AloInput
+          <AloSelect
+            defaultValue={product?.role as string}
+            options={options}
             register={register}
-            type="number"
-            value={product?.price as number}
-            label="Precio"
-            name="price"
             errors={errors}
-            required={false}
+            label="sexo"
+            labelText="Selecciona sexo"
           />
           {/* <AloInput
             register={register}
@@ -117,16 +116,6 @@ export function AddEditSupplierModal({
             errors={errors}
             required={false}
           /> */}
-          {/* <AloSelect
-            defaultValue="M"
-            options={options}
-            register={register}
-            errors={errors}
-            label="sexo"
-            labelText="Selecciona sexo"
-          /> */}
-
-          <AloInputFileImages label="Agregar imagenes" />
         </form>
       </AloModal>
     </>

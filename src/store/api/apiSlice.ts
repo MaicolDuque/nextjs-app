@@ -6,7 +6,7 @@ const headers = { 'Authorization': `Bearer ${Cookies.get('token')}` }
 export const apiSlice = createApi({
   reducerPath: 'apiSlice',
   refetchOnReconnect: true,
-  tagTypes: ['Products'],
+  tagTypes: ['Products', 'Suppliers'],
   baseQuery: fetchBaseQuery({ baseUrl: process.env.NEXT_PUBLIC_API_URL, headers }),
   endpoints: (builder) => ({
     getProfile: builder.query({

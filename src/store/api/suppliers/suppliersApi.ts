@@ -12,8 +12,18 @@ export const productsApiSlice = apiSlice.injectEndpoints({
           return { id, avatar, ...rest }
         })
       },
-    })
+    }),
+
+    deleteSupplier: builder.mutation<{ success: boolean; id: number }, number>({
+      query(id) {
+        return {
+          url: `/users/${id}`,
+          method: 'DELETE',
+        }
+      },
+      invalidatesTags: (result, error, id) => [{ type: 'Suppliers', id: 'LIST' }],
+    }),
   })
 })
 
-export const { useGetSuppliersQuery } = productsApiSlice
+export const { useGetSuppliersQuery, useDeleteSupplierMutation } = productsApiSlice

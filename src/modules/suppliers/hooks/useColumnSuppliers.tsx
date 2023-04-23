@@ -1,5 +1,4 @@
 import { useMemo, useState } from 'react'
-import Image from 'next/image'
 
 import { Supplier } from '@store/api/types/Supplier'
 import { IconPencil, IconTrash } from '@tabler/icons-react'
@@ -10,18 +9,18 @@ const columnHelper = createColumnHelper<Supplier>()
 export function useColumnSuppliers(data: Supplier[] | undefined) {
   const [openEditModal, setOpenEditModal] = useState(false)
   const [openConfirmationModal, setOpenConfirmationModal] = useState(false)
-  const [currentProduct, setCurrentProduct] = useState<Supplier | undefined>()
+  const [currentSupplier, setCurrentSupplier] = useState<Supplier | undefined>()
 
   const handleEdit = (id: string | number) => {
-    const currentProduct = data?.find(product => product.id === id) as Supplier
-    console.log('Ediitt ', id)
-    setCurrentProduct(currentProduct)
+    const currentSupplier = data?.find(supplier => supplier.id === id) as Supplier
+    console.log('Ediitt ', id, currentSupplier)
+    setCurrentSupplier(currentSupplier)
     setOpenEditModal(true)
   }
 
   const handleDelete = (id: string | number) => {
-    const currentProduct = data?.find(product => product.id === id) as Supplier
-    setCurrentProduct(currentProduct)
+    const currentSupplier = data?.find(supplier => supplier.id === id) as Supplier
+    setCurrentSupplier(currentSupplier)
     setOpenConfirmationModal(true)
   }
 
@@ -69,6 +68,6 @@ export function useColumnSuppliers(data: Supplier[] | undefined) {
     setOpenEditModal,
     openConfirmationModal,
     setOpenConfirmationModal,
-    currentProduct
+    currentSupplier
   }
 }
