@@ -14,6 +14,7 @@ export function useColumnSuppliers(data: Supplier[] | undefined) {
   const handleEdit = (id: string | number) => {
     const currentSupplier = data?.find(supplier => supplier.id === id) as Supplier
     console.log('Ediitt ', id, currentSupplier)
+    console.log({ data })
     setCurrentSupplier(currentSupplier)
     setOpenEditModal(true)
   }

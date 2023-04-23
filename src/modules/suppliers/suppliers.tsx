@@ -5,8 +5,12 @@ import { AloButton } from '@components/AloButton'
 import { AloTableVirtualized } from '@components/AloTableVirtualized'
 import AloConfirmationModal from '@components/AloConfirmationModal'
 import { useColumnSuppliers } from './hooks/useColumnSuppliers'
-import { useDeleteSupplierMutation, useGetSuppliersQuery } from '@store/api/suppliers/suppliersApi'
+import {
+  useDeleteSupplierMutation,
+  useGetSuppliersQuery,
+} from '@store/api/suppliers/suppliersApi'
 import { AddEditSupplierModal } from './components/AddEditSupplierModal'
+import { toast } from 'sonner'
 
 export default function Suppliers() {
   const { data } = useGetSuppliersQuery(undefined)
@@ -23,6 +27,8 @@ export default function Suppliers() {
 
   const handleDeleteProduct = () => {
     deleteSupplier(currentSupplier?.id as number)
+      .then((_) => toast.success('Proveedor eliminado correctamente!'))
+      .catch((_) => toast.error('Error eliminando el proveedor'))
     setOpenConfirmationModal(false)
   }
 
@@ -44,14 +50,14 @@ export default function Suppliers() {
         <AddEditSupplierModal
           open={openEditModal}
           setOpen={setOpenEditModal}
-          product={currentSupplier}
+          supplier={currentSupplier}
           isEditing={true}
         />
       )}
 
       {openConfirmationModal && (
         <AloConfirmationModal
-          title="Eliminar Producto"
+          title="Eliminar Proveedor"
           open={openConfirmationModal}
           setOpen={setOpenConfirmationModal}
           message="¿Estas seguro que deseas eliminar el proveedor?"

@@ -4,13 +4,12 @@ import { AloButton } from '@components/AloButton'
 import { AloInput } from '@components/AloInput'
 import { AloModal } from '@components/AloModal'
 import { AloSelect } from '@components/AloSelect'
-import { useUpdateProductMutation } from '@store/api/products/productsApi'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { useAddSupplierMutation } from '@store/api/suppliers/suppliersApi'
+import { useAddSupplierMutation, useUpdateSupplierMutation } from '@store/api/suppliers/suppliersApi'
 
 interface Props {
   open: boolean
-  product?: Record<string, unknown>
+  supplier?: Record<string, unknown>
   isEditing?: boolean
   setOpen: (open: boolean) => void
 }
@@ -23,10 +22,10 @@ const options = [
 export function AddEditSupplierModal({
   open,
   setOpen,
-  product,
+  supplier,
   isEditing = false,
 }: Props) {
-  const [updateProduct] = useUpdateProductMutation()
+  const [updateSupplier] = useUpdateSupplierMutation()
   const [addSupplier] = useAddSupplierMutation()
   const {
     register,
@@ -35,12 +34,12 @@ export function AddEditSupplierModal({
   } = useForm()
 
   const onSubmit: SubmitHandler<any> = (data) => {
-    const supplierUpdated = { ...product, ...data }
+    const supplierUpdated = { ...supplier, ...data }
     console.log({ data, supplierUpdated })
     if (isEditing) {
-      updateProduct(supplierUpdated)
-        .then((_) => toast.success('Producto actualizado correctamente!'))
-        .catch((_) => toast.error('Error actualizando el producto'))
+      updateSupplier(supplierUpdated)
+        .then((_) => toast.success('Proveedor actualizado correctamente!'))
+        .catch((_) => toast.error('Error actualizando el proveedor'))
     }
     if (!isEditing) {
       console.log({ supplierUpdated })
@@ -81,10 +80,10 @@ export function AddEditSupplierModal({
               label="Nombre"
               name="name"
               errors={errors}
-              value={product?.name as string}
+              value={supplier?.name as string}
             />
             <AloInput
-              value={product?.email as string}
+              value={supplier?.email as string}
               register={register}
               label="Correo"
               name="email"
@@ -93,7 +92,7 @@ export function AddEditSupplierModal({
             />
           </div>
           <AloInput
-            value={product?.email as string}
+            value={supplier?.password as string}
             register={register}
             label="Contraseña"
             name="password"
@@ -102,7 +101,7 @@ export function AddEditSupplierModal({
             required={true}
           />
           <AloSelect
-            defaultValue={product?.role as string}
+            defaultValue={supplier?.role as string}
             options={options}
             register={register}
             errors={errors}
@@ -113,7 +112,7 @@ export function AddEditSupplierModal({
             register={register}
             type="text"
             label="Ciudad"
-            value={product?.city as string}
+            value={supplier?.city as string}
             errors={errors}
             required={false}
           /> */}

@@ -8,10 +8,23 @@ export const productsApiSlice = apiSlice.injectEndpoints({
       query: () => '/users?limit=15',
       transformResponse(baseQueryReturnValue: Supplier[], meta, arg) {
         return baseQueryReturnValue.map(supplier => {
-          const { id, avatar, password, updatedAt, ...rest } = supplier
+          const { id, avatar, updatedAt, ...rest } = supplier
           return { id, avatar, ...rest }
         })
       },
+      providesTags: (_result) => [{ type: 'Suppliers', id: 'LIST' }],
+    }),
+
+    updateSupplier: builder.mutation<Supplier, Supplier>({
+      query(post) {
+        const { id, ...body } = post
+        return {
+          url: `/users/${id}`,
+          method: 'PUT',
+          body
+        }
+      },
+      invalidatesTags: (result, error, { id }) => [{ type: 'Suppliers', id: 'LIST' }]
     }),
 
     deleteSupplier: builder.mutation<{ success: boolean; id: number }, number>({
@@ -37,4 +50,4 @@ export const productsApiSlice = apiSlice.injectEndpoints({
   })
 })
 
-export const { useGetSuppliersQuery, useDeleteSupplierMutation, useAddSupplierMutation } = productsApiSlice
+export const { useGetSuppliersQuery, useDeleteSupplierMutation, useAddSupplierMutation, useUpdateSupplierMutation } = productsApiSlice
