@@ -54,7 +54,6 @@ export function Header() {
 
             {dropdown && (
               <div
-                x-cloak
                 x-show="dropdownOpen"
                 className="absolute right-0 z-10 w-48 mt-2 overflow-hidden bg-white rounded-md shadow-xl"
               >

@@ -2,7 +2,12 @@ import Image from 'next/image'
 import { useEffect, useRef } from 'react'
 import { useRouter } from 'next/router'
 
-import { ALO_APPS, DEFAULT_ALT, DEFAULT_IMG } from '@helpers/constants'
+import {
+  ALO_APPS,
+  ALO_IDS_SUPPORTED,
+  DEFAULT_ALT,
+  DEFAULT_IMG,
+} from '@helpers/constants'
 import { useAuth } from '@hooks/userContext'
 import { useDispatch } from 'react-redux'
 import { setAloId, setShowLoading } from '@store/slices/appSlice'
@@ -14,7 +19,7 @@ export function Login({ aloId }: { aloId: string }) {
 
   const emailRef = useRef<HTMLInputElement>(null)
   const passwordRef = useRef<HTMLInputElement>(null)
-  const aloidRef = useRef<HTMLInputElement>(null)
+  const aloidRef = useRef<HTMLSelectElement>(null)
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -62,16 +67,23 @@ export function Login({ aloId }: { aloId: string }) {
             {aloId === '' && (
               <div>
                 <label className="block text-gray-700">Alo Id</label>
-                <input
-                  type="text"
+                <select
                   name="aloid"
                   id="aloid"
-                  placeholder="Ingrese Alo Id"
-                  className="w-full px-4 py-3 rounded-lg bg-white mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
-                  autoFocus
-                  required
                   ref={aloidRef}
-                />
+                  className="bg-white border-2 border-gray-200 text-gray-900 placeholder-gray-300 px-4 py-4 text-sm rounded-lg focus:outline-none focus:ring-indigo-500 focus:indigo-blue-500 block w-full "
+                >
+                  {ALO_IDS_SUPPORTED.map((id: string) => {
+                    return (
+                      <option
+                        key={ALO_APPS[id].value}
+                        value={ALO_APPS[id].value}
+                      >
+                        {ALO_APPS[id].title}
+                      </option>
+                    )
+                  })}
+                </select>
               </div>
             )}
 
