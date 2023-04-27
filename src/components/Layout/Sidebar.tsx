@@ -22,10 +22,12 @@ export function Sidebar() {
   const isOpen = useSelector(isOpenSideBar)
   const router = useRouter()
   const dispatch = useDispatch()
-  const [titleDashboard] = useState(() => localStorage.getItem('alo-title'))
+  const [titleDashboard, setTitle] = useState('')
 
   useEffect(() => {
     dispatch(setSidebarItem(router.pathname))
+    const title = localStorage.getItem('alo-title')
+    setTitle(title ?? '')
   }, [])
 
   return (
