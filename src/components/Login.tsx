@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import { useEffect, useRef } from 'react'
+import { useRef } from 'react'
 import { useRouter } from 'next/router'
 
 import {
@@ -12,7 +12,7 @@ import { useAuth } from '@hooks/userContext'
 import { useDispatch } from 'react-redux'
 import { setAloId, setShowLoading } from '@store/slices/appSlice'
 
-export function Login({ aloId }: { aloId: string }) {
+export function Login({ aloId: aloIdProp }: { aloId: string }) {
   const auth = useAuth()
   const router = useRouter()
   const dispatch = useDispatch()
@@ -25,12 +25,14 @@ export function Login({ aloId }: { aloId: string }) {
     e.preventDefault()
     const email = emailRef.current?.value ?? ''
     const password = passwordRef.current?.value ?? ''
-    const aloid = aloidRef.current?.value ?? aloId
+    const aloid = aloidRef.current?.value ?? aloIdProp
     dispatch(setShowLoading(true))
     auth
       ?.singnIn(email, password)
       .then((user) => {
-        console.log({ user, aloId })
+        console.log({ user, aloIdProp, aloid })
+        const titleDashboard = ALO_APPS[aloid]?.title
+        localStorage.setItem('alo-title', titleDashboard)
         dispatch(setShowLoading(false))
         dispatch(setAloId(aloid))
         router.push('/dashboard')
@@ -48,8 +50,8 @@ export function Login({ aloId }: { aloId: string }) {
           <Image
             width={300}
             height={300}
-            src={ALO_APPS[aloId]?.image ?? DEFAULT_IMG}
-            alt={ALO_APPS[aloId]?.alt ?? DEFAULT_ALT}
+            src={ALO_APPS[aloIdProp]?.image ?? DEFAULT_IMG}
+            alt={ALO_APPS[aloIdProp]?.alt ?? DEFAULT_ALT}
           ></Image>
         </div>
       </div>
@@ -64,13 +66,14 @@ export function Login({ aloId }: { aloId: string }) {
           </h1>
 
           <form className="mt-6" onSubmit={handleSubmit}>
-            {aloId === '' && (
+            {aloIdProp === '' && (
               <div>
                 <label className="block text-gray-700">Alo Id</label>
                 <select
                   name="aloid"
                   id="aloid"
                   ref={aloidRef}
+                  // onChange={(e) => setNewAloId(e.target.value)}
                   className="bg-white border-2 border-gray-200 text-gray-900 placeholder-gray-300 px-4 py-4 text-sm rounded-lg focus:outline-none focus:ring-indigo-500 focus:indigo-blue-500 block w-full "
                 >
                   {ALO_IDS_SUPPORTED.map((id: string) => {

@@ -5,7 +5,7 @@ import {
   IconShoppingCart,
   IconMenu2,
 } from '@tabler/icons-react'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 
 import { ALO_APPS } from '@helpers/constants'
@@ -17,12 +17,12 @@ import {
 } from '@store/slices/appSlice'
 import { SidebarItem } from './SidebarItem'
 
+
 export function Sidebar() {
   const isOpen = useSelector(isOpenSideBar)
-  const aloId = useSelector(getAloId)
   const router = useRouter()
-  const titleDashboard = ALO_APPS[aloId]?.title
   const dispatch = useDispatch()
+  const [titleDashboard] = useState(() => localStorage.getItem('alo-title'))
 
   useEffect(() => {
     dispatch(setSidebarItem(router.pathname))
